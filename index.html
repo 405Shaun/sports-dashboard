@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greatest Plays in Sports History</title>
+<style>
+  :root{
+    --field:#173A2E;
+    --field-dark:#102822;
+    --chalk:#F7F5EE;
+    --hash:#C9C2A6;
+    --flag:#F2B705;
+    --endzone:#8C2F2F;
+    --ink:#1A2019;
+    --ink-soft:#5A6459;
+    --card:#FFFFFF;
+    --radius:18px;
+    --radius-sm:12px;
+    --font-sans:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono:ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--field);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><g fill='none' stroke='rgba(255,255,255,0.045)' stroke-width='34' stroke-linecap='round'><path d='M-50 120 C150 20 300 220 650 90'/><path d='M-50 340 C200 240 380 460 650 320'/><path d='M-50 560 C180 460 420 640 650 520'/></g></svg>"),
+      linear-gradient(180deg, var(--field) 0%, var(--field-dark) 100%);
+    background-size:600px 600px, auto;
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:var(--font-sans);
+    min-height:100vh;
+    padding:0 0 130px;
+  }
+
+  header{
+    padding:36px 24px 8px;
+    text-align:center;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    font-size:10px;
+    color:var(--hash);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:var(--font-sans);
+    font-weight:800;
+    letter-spacing:-.02em;
+    color:var(--chalk);
+    font-size:clamp(1.7rem, 4vw, 2.4rem);
+    line-height:1.1;
+    margin:0;
+  }
+  h1 span{ color:var(--flag); }
+  .subhead{
+    max-width:480px;
+    margin:10px auto 0;
+    color:#C6D2C6;
+    font-size:13.5px;
+    line-height:1.55;
+  }
+
+  .control-strip{
+    max-width:900px;
+    margin:34px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .search-strip{ margin-top:24px; }
+  .search-strip input[type="search"]{
+    font-family:var(--font-sans);
+    font-size:14px;
+    color:var(--ink);
+    background:#FFFFFF url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%235A6459' stroke-width='2.4' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.5-4.5'/></svg>") no-repeat left 16px center;
+    border:none;
+    border-radius:100px;
+    padding:13px 22px 13px 42px;
+    min-width:300px;
+    outline:none;
+    box-shadow:0 8px 24px -14px rgba(0,0,0,.55);
+    transition:box-shadow .15s ease;
+  }
+  .search-strip input[type="search"]::placeholder{ color:#8a948a; }
+  .search-strip input[type="search"]:focus{ box-shadow:0 8px 24px -10px rgba(0,0,0,.65), 0 0 0 2px var(--flag); }
+
+  .fav-toggle{
+    font-family:var(--font-sans);
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    background:#FFFFFF;
+    border:none;
+    border-radius:100px;
+    padding:13px 20px;
+    cursor:pointer;
+    white-space:nowrap;
+    box-shadow:0 8px 24px -14px rgba(0,0,0,.55);
+    transition:all .15s ease;
+  }
+  .fav-toggle:hover{ transform:translateY(-1px); }
+  .fav-toggle.active{ background:var(--flag); color:var(--ink); }
+
+  .category-tabs{
+    max-width:900px;
+    margin:28px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:26px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .category-tab{
+    font-family:var(--font-sans);
+    font-size:13.5px;
+    font-weight:600;
+    color:rgba(244,241,230,.55);
+    background:none;
+    border:none;
+    border-radius:0;
+    padding:6px 2px 10px;
+    cursor:pointer;
+    position:relative;
+    transition:color .15s ease;
+  }
+  .category-tab:hover{ color:rgba(244,241,230,.85); }
+  .category-tab::after{
+    content:'';
+    position:absolute;
+    left:50%; bottom:0;
+    transform:translateX(-50%) scaleX(0);
+    width:22px; height:3px;
+    border-radius:3px;
+    background:var(--flag);
+    transition:transform .18s ease;
+  }
+  .category-tab.active{ color:var(--flag); }
+  .category-tab.active::after{ transform:translateX(-50%) scaleX(1); }
+  .category-tab:focus-visible{ outline:2px solid var(--flag); outline-offset:3px; border-radius:6px; }
+
+  main{
+    max-width:980px;
+    margin:0 auto;
+    padding:40px 24px 0;
+  }
+
+  .category-banner{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:24px;
+    border-bottom:1px solid rgba(244,241,230,.18);
+    padding-bottom:16px;
+  }
+  .category-banner .num{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:36px;
+    letter-spacing:-.02em;
+    color:var(--flag);
+    line-height:1;
+  }
+  .category-banner .txt h2{
+    font-family:var(--font-sans);
+    font-weight:700;
+    letter-spacing:-.01em;
+    color:var(--chalk);
+    margin:0;
+    font-size:21px;
+  }
+  .category-banner .txt p{
+    margin:4px 0 0;
+    color:#B9C6B9;
+    font-size:13.5px;
+  }
+  .result-count{
+    margin:6px 0 0;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--flag);
+  }
+
+  .plays{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+    gap:18px;
+    align-items:start;
+  }
+  .no-results{
+    grid-column:1/-1;
+    text-align:center;
+    color:#B9C6B9;
+    font-size:14px;
+    padding:50px 0;
+  }
+
+  .play-card{
+    background:var(--card);
+    border-radius:24px;
+    padding:24px 26px 26px;
+    position:relative;
+    border:none;
+    box-shadow: 0 14px 34px -20px rgba(0,0,0,.6);
+    opacity:0;
+    transform:translateY(10px);
+    animation:rise .45s ease forwards;
+  }
+
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+  .play-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .play-name{
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:18px;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    margin:0;
+  }
+  .play-top-right{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .play-meta{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    white-space:nowrap;
+    text-align:right;
+  }
+  .play-meta .date{ display:block; color:#8a8f86; margin-top:2px; }
+
+  .fav-star{
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-size:22px;
+    line-height:1;
+    padding:0;
+    color:#c9c2a6;
+    transition:transform .12s ease, color .12s ease;
+  }
+  .fav-star:hover{ transform:scale(1.15); }
+  .fav-star.active{ color:#c9860a; }
+
+  .play-connection{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:6px 0 12px;
+    font-weight:600;
+  }
+  .play-connection b{ color:var(--ink); }
+
+  .play-desc{
+    font-size:14.5px;
+    line-height:1.62;
+    color:#2b332b;
+    margin:0 0 14px;
+  }
+
+  .stat-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .stat-pill{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.02em;
+    background:rgba(23,58,46,.07);
+    color:var(--field);
+    padding:6px 12px;
+    border-radius:100px;
+    font-weight:600;
+  }
+  .tone-td .stat-pill{ background: rgba(140,47,47,.1); color:var(--endzone); }
+  .tone-drop .stat-pill{ background: rgba(107,107,107,.14); color:#4a4a4a; }
+  .tone-flag .stat-pill{ background: rgba(242,183,5,.18); color:#8a6300; }
+  .tone-navy .stat-pill{ background: rgba(30,58,95,.14); color:#1e3a5f; }
+  .tone-orange .stat-pill{ background: rgba(196,93,29,.14); color:#a4491d; }
+  .tone-purple .stat-pill{ background: rgba(91,58,140,.14); color:#5b3a8c; }
+
+
+  .watch-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:16px;
+    font-family:var(--font-sans);
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--field);
+    text-decoration:none;
+    background:rgba(0,0,0,.05);
+    border-radius:100px;
+    padding:8px 15px;
+    transition:background .15s ease;
+  }
+  .watch-link:hover{ background:rgba(0,0,0,.1); }
+  .watch-link svg{ width:13px; height:13px; flex-shrink:0; }
+  button.watch-link{ font-family:inherit; cursor:pointer; }
+
+  .video-modal{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:56px 24px 24px;
+  }
+  .video-modal.open{ display:flex; }
+  .video-modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(8,12,10,.85);
+  }
+  .video-modal-box{
+    position:relative;
+    width:100%;
+    max-width:880px;
+    z-index:1;
+  }
+  .video-modal-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    border-radius:20px;
+    overflow:hidden;
+    background:#000;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.75);
+  }
+  .video-modal-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:none;
+  }
+  .video-loading{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:rgba(255,255,255,.6);
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:.08em;
+  }
+  .video-blocked{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:28px;
+    gap:10px;
+  }
+  .video-blocked-icon{ width:40px; height:40px; color:rgba(255,255,255,.35); }
+  .video-blocked-icon svg{ width:100%; height:100%; }
+  .video-blocked-title{
+    margin:6px 0 0;
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:17px;
+    color:#fff;
+  }
+  .video-blocked-sub{
+    margin:0;
+    max-width:360px;
+    font-size:13.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.6);
+  }
+  .video-blocked-btn{
+    margin-top:8px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--font-sans);
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    background:var(--flag);
+    border-radius:100px;
+    padding:11px 22px;
+    text-decoration:none;
+    transition:transform .12s ease;
+  }
+  .video-blocked-btn:hover{ transform:translateY(-1px); }
+  .video-modal-close{
+    position:absolute;
+    top:-42px;
+    right:0;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .15s ease;
+  }
+  .video-modal-close:hover{ background:rgba(255,255,255,.3); }
+  .video-modal-close:focus-visible{ outline:2px solid var(--flag); outline-offset:2px; }
+
+  .video-modal-fallback{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+    font-family:var(--font-sans);
+    font-size:13px;
+    font-weight:600;
+    color:var(--chalk);
+    text-decoration:none;
+    background:rgba(255,255,255,.1);
+    border-radius:100px;
+    padding:10px 18px;
+    transition:background .15s ease;
+  }
+  .video-modal-fallback:hover{ background:rgba(255,255,255,.18); }
+
+  @media (prefers-reduced-motion: no-preference){
+    .video-modal-frame{ animation:modalPop .2s ease; }
+  }
+  @keyframes modalPop{ from{ transform:scale(.95); opacity:0; } to{ transform:scale(1); opacity:1; } }
+
+  .bottom-nav{
+    position:fixed;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:100;
+    display:flex;
+    gap:4px;
+    background:#FFFFFF;
+    border-radius:100px;
+    padding:8px 12px;
+    box-shadow:0 16px 40px -16px rgba(0,0,0,.65);
+    max-width:calc(100vw - 24px);
+    overflow-x:auto;
+  }
+  .sport-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    background:none;
+    border:none;
+    border-radius:18px;
+    padding:8px 13px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .sport-btn .icon{ font-size:20px; line-height:1; }
+  .sport-btn .lbl{
+    font-family:var(--font-sans);
+    font-size:9.5px;
+    font-weight:600;
+    color:#8a948a;
+    letter-spacing:.02em;
+  }
+  .sport-btn:hover{ background:rgba(0,0,0,.05); }
+  .sport-btn.active{ background:var(--field); }
+  .sport-btn.active .lbl{ color:var(--flag); }
+  .sport-btn:focus-visible{ outline:2px solid var(--field); outline-offset:2px; }
+
+  footer{
+    max-width:980px;
+    margin:50px auto 0;
+    padding:20px 24px 0;
+    color:#8fa08f;
+    font-size:12px;
+    text-align:center;
+    border-top:1px solid rgba(244,241,230,.15);
+    padding-top:20px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .play-card{ animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Instant Replay &mdash; Official Review</p>
+  <h1 id="mainTitle">Greatest Passes<br>in <span>NFL</span> History</h1>
+  <p class="subhead" id="mainSubhead">Four ways to review the tape. Pick a category below and the booth will pull up the plays that defined it &mdash; from touchdowns that built dynasties to drops that haunted careers.</p>
+</header>
+
+<div class="control-strip search-strip">
+  <input type="search" id="searchInput" placeholder="Search plays, players, teams&hellip;" aria-label="Search plays">
+  <button type="button" id="favToggle" class="fav-toggle" aria-pressed="false">&#9733; Favorites</button>
+</div>
+
+<div class="category-tabs" id="categoryTabs" role="tablist" aria-label="Select a play category"></div>
+
+<main>
+  <div class="category-banner">
+    <span class="num" id="bannerNum">01</span>
+    <div class="txt">
+      <h2 id="bannerTitle">Touchdown Passes</h2>
+      <p id="bannerDesc">The scores that decided championships and rewrote highlight reels.</p>
+      <p class="result-count" id="resultCount"></p>
+    </div>
+  </div>
+  <div class="plays" id="plays"></div>
+</main>
+
+<footer>
+  Historical recap for reference &mdash; built from publicly reported game accounts. Not affiliated with any league.
+</footer>
+
+<nav class="bottom-nav" id="bottomNav" aria-label="Select a sport"></nav>
+
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Video player">
+  <div class="video-modal-backdrop" id="videoModalBackdrop"></div>
+  <div class="video-modal-box">
+    <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
+    <div class="video-modal-frame" id="videoModalFrame"></div>
+    <a class="video-modal-fallback" id="videoModalFallback" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube &#8599;</a>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  td: {
+    title: "Touchdown Passes",
+    desc: "The scores that decided championships and rewrote highlight reels.",
+    tone: "tone-td",
+    plays: [
+      {
+        name: "The Immaculate Reception",
+        connection: "Terry Bradshaw &rarr; Franco Harris",
+        date: "Dec 23, 1972 &middot; AFC Divisional Playoff",
+        stat: "60-YD TD",
+        desc: "Fourth down, 22 seconds left, Steelers trailing the Raiders. Bradshaw's deflected pass ricocheted off a collision near the line and dropped into Franco Harris's hands inches off the turf. He never broke stride, sprinting in for the win and the first playoff victory in Steelers history.",
+        pills: ["4th & 10", "Pittsburgh 13, Oakland 7", "AFC Divisional"],
+        video: "https://www.youtube.com/watch?v=ywa3k9N___s"
+      },
+      {
+        name: "The Hail Mary",
+        connection: "Roger Staubach &rarr; Drew Pearson",
+        date: "Dec 28, 1975 &middot; NFC Divisional Playoff",
+        stat: "50-YD TD",
+        desc: "With 24 seconds on the clock, Staubach heaved a desperation ball downfield &mdash; and later admitted he 'closed his eyes and said a Hail Mary.' Pearson hauled it in against his hip for the game-winner, and the phrase entered the football lexicon for good.",
+        pills: ["0:24 remaining", "Dallas 17, Minnesota 14", "Named the play"],
+        video: "https://www.youtube.com/watch?v=ZEZKpY8t4EQ"
+      },
+      {
+        name: "The Catch",
+        connection: "Joe Montana &rarr; Dwight Clark",
+        date: "Jan 10, 1982 &middot; NFC Championship",
+        stat: "6-YD TD",
+        desc: "Rolling right under heavy pressure, Montana lofted a fade toward the back corner of the end zone that looked uncatchable. Clark rose above the defense to snag it with fingertips, sending the 49ers to their first Super Bowl and launching the franchise's dynasty.",
+        pills: ["0:51 remaining", "San Francisco 28, Dallas 27", "NFC Championship"],
+        video: "https://www.youtube.com/watch?v=xLsFSsHnoxM"
+      },
+      {
+        name: "The Minneapolis Miracle",
+        connection: "Case Keenum &rarr; Stefon Diggs",
+        date: "Jan 14, 2018 &middot; NFC Divisional Playoff",
+        stat: "61-YD TD",
+        desc: "Down four with 10 seconds left, Keenum found Diggs on a deep out. Diggs caught it, stayed inbounds, and sprinted the length of the field as a diving Saints defender slipped &mdash; a walk-off touchdown as time expired.",
+        pills: ["0:00 on clock", "Minnesota 29, New Orleans 24", "Walk-off finish"],
+        video: "https://www.youtube.com/watch?v=T_AyI8I4O3U"
+      }
+    ]
+  },
+  comp: {
+    title: "Completed Passes",
+    desc: "Clutch throws and impossible catches that didn't need to be touchdowns to become legend.",
+    tone: "tone-comp",
+    plays: [
+      {
+        name: "The Helmet Catch",
+        connection: "Eli Manning &rarr; David Tyree",
+        date: "Feb 3, 2008 &middot; Super Bowl XLII",
+        stat: "32-YD GAIN",
+        desc: "Manning escaped what looked like a certain sack, and Tyree leapt to pin the ball against his own helmet while falling backward, somehow maintaining control. It set up the game-winning score three plays later and ended New England's bid for a perfect season.",
+        pills: ["3rd & 5", "Giants 17, Patriots 14 (final)", "Set up the winning TD"],
+        video: "https://www.youtube.com/watch?v=qCAQsEwyCcg"
+      },
+      {
+        name: "Manning to Manningham",
+        connection: "Eli Manning &rarr; Mario Manningham",
+        date: "Feb 5, 2012 &middot; Super Bowl XLVI",
+        stat: "38-YD GAIN",
+        desc: "Manning threaded a sideline strike between two Patriots defenders with a window of inches, and Manningham somehow kept both feet in bounds. The catch fueled the drive that won the Giants their second Super Bowl in five years over New England.",
+        pills: ["1st & 10", "Set up game-winning drive", "Giants 21, Patriots 17"],
+        video: "https://www.youtube.com/watch?v=_cXqbqMgNoE"
+      },
+      {
+        name: "The Julian Edelman Circus Catch",
+        connection: "Tom Brady &rarr; Julian Edelman",
+        date: "Feb 5, 2017 &middot; Super Bowl LI",
+        stat: "23-YD GAIN",
+        desc: "Trailing by 19 in the fourth quarter during the Patriots' historic 28-3 comeback, Brady's pass deflected off Falcons cornerback Robert Alford and hung in the air over a scrum of players. Edelman dove and scooped it off his shoetops before it hit the ground, keeping alive the drive that tied the game and forced overtime.",
+        pills: ["4th quarter, down 19", "Part of 28-3 comeback", "Patriots won in OT, 34-28"],
+        video: "https://www.youtube.com/watch?v=4SiUNdkIwzQ"
+      },
+      {
+        name: "One-Handed Grab vs. Dallas",
+        connection: "Eli Manning &rarr; Odell Beckham Jr.",
+        date: "Nov 23, 2014 &middot; Week 12, Cowboys at Giants",
+        stat: "43-YD TD",
+        desc: "Falling backward with a defender draped on him, Beckham snatched the ball out of the air with three fingers on his right hand and somehow controlled it through the catch. It's still replayed as one of the most physically improbable grabs in league history.",
+        pills: ["Regular season", "Instant highlight-reel classic", "Giants 31, Cowboys 28"],
+        video: "https://www.youtube.com/watch?v=zxbz3DDQzHU"
+      }
+    ]
+  },
+  drop: {
+    title: "Dropped Passes",
+    desc: "The other side of the ledger &mdash; catchable balls that got away at the worst possible moment.",
+    tone: "tone-drop",
+    plays: [
+      {
+        name: "Jackie Smith's Super Bowl Drop",
+        connection: "Roger Staubach &rarr; Jackie Smith",
+        date: "Jan 21, 1979 &middot; Super Bowl XIII",
+        stat: "DROPPED, OPEN IN END ZONE",
+        desc: "Wide open on third down at the goal line, the future Hall of Fame tight end got both hands on a low, off-target throw and still couldn't bring it in, collapsing to the turf in disbelief. Dallas had to settle for a field goal instead of a tying score, and Pittsburgh held on to win.",
+        pills: ["3rd & goal", "Cowboys settled for FG", "Steelers 35, Cowboys 31"],
+        video: "https://www.youtube.com/watch?v=pVmYsOEeHm4"
+      },
+      {
+        name: "Wes Welker's Drop",
+        connection: "Tom Brady &rarr; Wes Welker",
+        date: "Feb 5, 2012 &middot; Super Bowl XLVI",
+        stat: "DROPPED, 23 YDS DOWNFIELD",
+        desc: "One of the most reliable receivers of his era got both hands on a slightly high throw with the Patriots clinging to a two-point lead and four minutes left. The incompletion gave the ball back to the Giants, who marched down for the winning touchdown.",
+        pills: ["2nd & 11", "4:06 remaining", "Patriots lost, 21-17"],
+        video: "https://www.youtube.com/watch?v=cqos_aLjGtU"
+      },
+      {
+        name: "Mark Andrews' Playoff Drop",
+        connection: "Lamar Jackson &rarr; Mark Andrews",
+        date: "Jan 19, 2025 &middot; AFC Divisional Round, Ravens at Bills",
+        stat: "DROPPED 2-PT CONVERSION",
+        desc: "Trailing by two with 1:33 left, the Ravens scored a touchdown and went for two to tie it. A three-time All-Pro tight end who rarely drops anything let the pass go right through his hands in the end zone. Buffalo held on to win and advance, immediately drawing comparisons to Jackie Smith's Super Bowl XIII drop nearly half a century earlier.",
+        pills: ["Score it, tie the game", "Ravens lost, 27-25", "Echoed Super Bowl XIII"],
+        video: "https://www.nfl.com/videos/mark-andrews-drops-potential-game-tying-two-point-conversion-catch-vs-bills"
+      }
+    ]
+  },
+  flag: {
+    title: "Called Back on a Penalty",
+    desc: "Big plays erased before they ever hit the scoreboard.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "Kupp's Nullified Touchdown",
+        connection: "Matthew Stafford &rarr; Cooper Kupp",
+        date: "Feb 13, 2022 &middot; Super Bowl LVI",
+        stat: "TD WIPED &mdash; OFFSETTING PENALTIES",
+        desc: "Stafford found Kupp for what looked like a Super Bowl touchdown, but offsetting penalties &mdash; offensive holding against the Rams and unnecessary roughness against the Bengals &mdash; canceled the play entirely and sent the offense back to the previous down.",
+        pills: ["Offsetting fouls", "Play replayed", "Rams won, 23-20"],
+        video: "https://www.youtube.com/watch?v=LYP91oVyUuU"
+      },
+      {
+        name: "The Trick-Play Touchdown That Wasn't",
+        connection: "David Montgomery &rarr; Jared Goff",
+        date: "Oct 2025 &middot; Sunday Night Football, Lions at Chiefs",
+        stat: "TD WIPED &mdash; ILLEGAL MOTION",
+        desc: "On a gadget play, running back David Montgomery threw back to quarterback Jared Goff, who caught it for an apparent touchdown. Officials ruled Goff never came to a required full-second stop after going in motion pre-snap, erasing the score for illegal motion. Detroit settled for a field goal.",
+        pills: ["Illegal motion, 5 yds", "Lions kicked FG instead", "Rare QB-as-receiver TD"],
+        video: "https://www.youtube.com/watch?v=EDyRaCMFq8o"
+      },
+      {
+        name: "DeSean Jackson's Premature Celebration",
+        connection: "Donovan McNabb &rarr; DeSean Jackson",
+        date: "Sep 15, 2008 &middot; Week 2, Eagles at Cowboys",
+        stat: "TD WIPED &mdash; BALL DOWN AT THE 1",
+        desc: "Not a penalty in the traditional sense, but just as costly: Jackson dropped the ball to celebrate before crossing the goal line on what should have been a 61-yard touchdown catch, and officials placed the ball at the 1-yard line instead of awarding six points. The Eagles scored on the next play anyway, but still lost the game.",
+        pills: ["Rule-based reversal", "Eagles scored next play", "Eagles lost, 41-37"],
+        video: "https://www.youtube.com/watch?v=jvPaTX2Ha4E"
+      }
+    ]
+  }
+};
+
+const BASEBALL_DATA = {
+  catches: {
+    title: "Best Catches",
+    desc: "Defense that turned sure extra bases into outs, and outs into legend.",
+    tone: "tone-comp",
+    plays: [
+      {
+        name: "“The Catch”",
+        connection: "Willie Mays robs Vic Wertz",
+        date: "Sept 29, 1954 &middot; World Series Game 1",
+        stat: "~420-FT DRIVE, ROBBED",
+        desc: "Tied 2-2 in the eighth, Wertz crushed a ball to the deepest part of the Polo Grounds. Mays turned his back to the plate, sprinted to the warning track, hauled it in over his shoulder, then spun and fired a throw back to the infield that kept the runner from scoring. The Giants won in extra innings and swept the Series.",
+        pills: ["8th inning, tied 2-2", "Giants won 5-2 (10 innings)", "Still baseball's most replayed catch"],
+        video: "https://www.youtube.com/watch?v=1vrsg_-dV7Q"
+      },
+      {
+        name: "Endy Chavez Robs Scott Rolen",
+        connection: "NLCS Game 7",
+        date: "Oct 19, 2006 &middot; Mets vs. Cardinals",
+        stat: "HOME RUN TAKEN AWAY",
+        desc: "Tied 1-1 with a runner on first, Rolen crushed a ball toward the left-field fence that looked gone. Chavez timed his jump perfectly, snow-coned it at the top of the wall, then doubled off the runner at first for good measure. The Mets still lost the game and the series, but the catch is a postseason classic.",
+        pills: ["Game 7, tied 1-1", "Turned into a double play", "Cardinals won 3-1, took the series"],
+        video: "https://www.youtube.com/watch?v=5EaEQVKIDGU"
+      },
+      {
+        name: "Torii Hunter Robs Barry Bonds",
+        connection: "2002 MLB All-Star Game",
+        date: "July 9, 2002 &middot; Milwaukee",
+        stat: "HOME RUN TAKEN AWAY",
+        desc: "In the first inning, fresh off his record 73-homer season, Bonds hit a deep drive to right-center. Hunter timed his leap at the wall and pulled the ball back over the fence. Bonds jogged out to center field, laughing, and playfully hoisted Hunter onto his shoulder.",
+        pills: ["1st inning", "All-Star Game, Milwaukee", "Bonds hoisted Hunter afterward"],
+        video: "https://www.youtube.com/watch?v=dcQ5De9ZcZc"
+      },
+      {
+        name: "DeWayne Wise Saves a Perfect Game",
+        connection: "Preserves Mark Buehrle's perfecto",
+        date: "July 23, 2009 &middot; White Sox vs. Rays",
+        stat: "HOME RUN TAKEN AWAY, 9TH INNING",
+        desc: "Inserted as a defensive replacement to start the ninth, Wise immediately had to run down a deep Gabe Kapler drive at the center-field wall. He timed his leap, briefly juggled the ball on the way down, and held on &mdash; keeping Buehrle's perfect game alive for the final two outs.",
+        pills: ["9th inning, first batter faced", "White Sox won 5-0", "18th perfect game in MLB history"],
+        video: "https://www.mlb.com/video/wise-robs-homer-saves-perfecto-c5699065"
+      },
+      {
+        name: "Kirby Puckett's Game 6 Grab",
+        connection: "1991 World Series",
+        date: "Oct 26, 1991 &middot; Twins vs. Braves",
+        stat: "HOME RUN TAKEN AWAY",
+        desc: "With the Twins facing elimination, Puckett climbed the plexiglass in left-center to rob a home run, then later won the game himself with a walk-off homer in the 11th. Games 6 and 7 of that series are considered among the greatest in World Series history.",
+        pills: ["Elimination game", "Twins won 4-3 (11 innings)", "Puckett also hit the walk-off"],
+        video: "https://www.youtube.com/watch?v=BQksDqxG36s"
+      }
+    ]
+  },
+  walkoffs: {
+    title: "Best Walk-Off Home Runs",
+    desc: "One swing, game over, and a stadium erupts.",
+    tone: "tone-td",
+    plays: [
+      {
+        name: "Bill Mazeroski, 1960 World Series",
+        connection: "Game 7 &middot; Pirates vs. Yankees",
+        date: "Oct 13, 1960 &middot; Forbes Field",
+        stat: "WALK-OFF TO WIN THE SERIES",
+        desc: "Leading off the bottom of the ninth in a tied Game 7, Mazeroski took Ralph Terry deep over the left-field wall. It remains the only winner-take-all Game 7 walk-off home run in World Series history.",
+        pills: ["Bottom 9th, tied 9-9", "Pirates won the Series", "Still the only Game 7 walk-off HR"],
+        video: "https://www.youtube.com/watch?v=A-OCXYjVL4U"
+      },
+      {
+        name: "Carlton Fisk, 1975 World Series",
+        connection: "Game 6 &middot; Red Sox vs. Reds",
+        date: "Oct 21, 1975 &middot; Fenway Park",
+        stat: "WALK-OFF TO FORCE GAME 7",
+        desc: "In the 12th inning, Fisk drove a ball down the left-field line and hopped and waved his arms to will it fair off the foul pole &mdash; a moment that became one of the most replayed images in baseball history.",
+        pills: ["Bottom 12th", "Red Sox won 7-6", "“Body English” image is iconic"],
+        video: "https://www.youtube.com/watch?v=2WRi6iZAl-I"
+      },
+      {
+        name: "Kirk Gibson, 1988 World Series",
+        connection: "Game 1 &middot; Dodgers vs. Athletics",
+        date: "Oct 15, 1988 &middot; Dodger Stadium",
+        stat: "PINCH-HIT WALK-OFF",
+        desc: "Barely able to walk on two bad legs, Gibson pinch-hit against dominant closer Dennis Eckersley and, on a full count, golfed a backdoor slider into the right-field seats, pumping his fist around the bases.",
+        pills: ["Bottom 9th, down 4-3", "Dodgers won 5-4", "Gibson's only at-bat of the game"],
+        video: "https://www.youtube.com/watch?v=N4nwMDZYXTI"
+      },
+      {
+        name: "Joe Carter, 1993 World Series",
+        connection: "Game 6 &middot; Blue Jays vs. Phillies",
+        date: "Oct 23, 1993 &middot; SkyDome",
+        stat: "WALK-OFF TO WIN THE SERIES",
+        desc: "Down by a run in the ninth with two on, Carter took Mitch Williams deep down the left-field line and leapt around the bases in celebration. It's only the second Series-ending walk-off home run in MLB history, after Mazeroski.",
+        pills: ["Bottom 9th, down 6-5", "Blue Jays won 8-6", "Clinched back-to-back titles"],
+        video: "https://www.youtube.com/watch?v=-F5HwiGm7lg"
+      },
+      {
+        name: "Aaron Boone, 2003 ALCS",
+        connection: "Game 7 &middot; Yankees vs. Red Sox",
+        date: "Oct 16, 2003 &middot; Yankee Stadium",
+        stat: "WALK-OFF TO WIN THE PENNANT",
+        desc: "With the score tied in the 11th inning of a winner-take-all Game 7, Boone led off against knuckleballer Tim Wakefield and sent the Yankees to the World Series on the first pitch he saw.",
+        pills: ["Bottom 11th, tied 5-5", "Yankees won 6-5", "First pitch of the at-bat"],
+        video: "https://www.youtube.com/watch?v=TfX1k7Woa_w"
+      }
+    ]
+  },
+  longest: {
+    title: "Longest Home Runs",
+    desc: "From measuring-tape legends to the Statcast era's confirmed moonshots.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "Nomar Mazara",
+        connection: "vs. Chicago White Sox",
+        date: "June 21, 2019 &middot; Globe Life Park",
+        stat: "505 FEET",
+        desc: "Mazara crushed a 94-mph fastball into the second deck in Texas, setting the record for the longest home run tracked by Statcast since the system launched in 2015. It still stands as the longest confirmed by ball-tracking technology.",
+        pills: ["Statcast era record", "Longest tracked since 2015", "115+ mph exit velocity range"],
+        video: "https://www.youtube.com/watch?v=8kyjQQh_JwA"
+      },
+      {
+        name: "Giancarlo Stanton",
+        connection: "vs. Colorado Rockies",
+        date: "Aug 6, 2016 &middot; Coors Field",
+        stat: "504 FEET",
+        desc: "Stanton launched the first ball Statcast ever measured at over 500 feet, clearing the Coors Field bleachers in the left-center power gap on a low, line-drive trajectory at 115.8 mph off the bat.",
+        pills: ["First 500+ ft Statcast HR", "115.8 mph exit velocity", "Tied by C.J. Cron in 2022"],
+        video: "https://www.youtube.com/watch?v=rqmcIedTNkw"
+      },
+      {
+        name: "Mickey Mantle",
+        connection: "vs. Washington Senators",
+        date: "April 17, 1953 &middot; Griffith Stadium",
+        stat: "~565 FEET (ESTIMATED)",
+        desc: "Long before any tracking technology existed, Mantle hit a ball completely out of Griffith Stadium. A Yankees PR man measured the distance the ball traveled after landing, arriving at the legendary 565-foot figure that's still cited today.",
+        pills: ["Pre-tracking estimate", "Left the ballpark entirely", "Coined the term “tape-measure home run”"],
+        video: "https://www.youtube.com/watch?v=jmN3i8u-6UQ"
+      },
+      {
+        name: "Babe Ruth",
+        connection: "vs. Detroit Tigers",
+        date: "July 18, 1921 &middot; Navin Field",
+        stat: "~575 FEET (ESTIMATED)",
+        desc: "Often cited as the longest home run ever hit, Ruth's blast reportedly cleared the roof of Navin Field's outfield stands. Like all pre-1990s distance estimates, the figure comes from newspaper reporters pacing off where the ball was found, not precise tracking.",
+        pills: ["Pre-tracking estimate", "Often called longest ever", "Legend grew over decades of retelling"],
+        video: "https://www.youtube.com/shorts/6wLK3vuMchI"
+      },
+      {
+        name: "Aaron Judge",
+        connection: "vs. Toronto Blue Jays",
+        date: "Sept 30, 2017 &middot; Yankee Stadium",
+        stat: "496 FEET",
+        desc: "Judge's 52nd homer of his rookie season landed deep in the left-center field concourse, breaking Babe Ruth's 96-year-old Yankee Stadium franchise home run record and drawing “M-V-P” chants from the Bronx crowd.",
+        pills: ["Rookie season, HR No. 52", "Broke Ruth's franchise record", "Judge went on to win Rookie of the Year"],
+        video: "https://www.youtube.com/watch?v=VWXKvRk1Wto"
+      }
+    ]
+  },
+  strikeouts: {
+    title: "Best Strikeouts",
+    desc: "The punchouts that defined careers, broke records, and made history.",
+    tone: "tone-navy",
+    plays: [
+      {
+        name: "Kerry Wood's 20-Strikeout Game",
+        connection: "Cubs vs. Astros",
+        date: "May 6, 1998 &middot; Wrigley Field",
+        stat: "20 K, ONE-HIT SHUTOUT",
+        desc: "In just his fifth career start, the 20-year-old rookie tied the modern MLB record with 20 strikeouts, allowing only one infield single and a hit batter. Many still call it the greatest single-game pitching performance ever.",
+        pills: ["Cubs won 2-0", "Tied Clemens' MLB record", "Wood matched his own age (20) in Ks"],
+        video: "https://www.mlb.com/video/kerry-wood-s-20-strikeout-game"
+      },
+      {
+        name: "Roger Clemens, Twice",
+        connection: "Set the 20-K record twice",
+        date: "April 29, 1986 &amp; Sept 18, 1996",
+        stat: "20 K IN A NINE-INNING GAME",
+        desc: "Clemens struck out 20 Seattle Mariners in 1986 as a Red Sox ace, then matched it a decade later against the Detroit Tigers, becoming the first pitcher to reach 20 strikeouts in a nine-inning game twice.",
+        pills: ["1986 vs. Mariners (age 23)", "1996 vs. Tigers (age 34)", "First pitcher to do it twice"],
+        video: "https://www.youtube.com/watch?v=-o1YnMQG6pY"
+      },
+      {
+        name: "Nolan Ryan's 5,000th Strikeout",
+        connection: "Fans Rickey Henderson",
+        date: "Aug 22, 1989 &middot; Arlington Stadium",
+        stat: "5,000TH CAREER K",
+        desc: "At age 42, Ryan became the first pitcher in history to reach 5,000 career strikeouts, fanning fellow future Hall of Famer Rickey Henderson on a full count. Henderson later joked, “If he ain't struck you out, you ain't nobody.”",
+        pills: ["First to 5,000 Ks", "Ryan retired with 5,714", "Still the all-time record"],
+        video: "https://www.youtube.com/watch?v=RnTkxCWk3D4"
+      },
+      {
+        name: "Randy Johnson's 20-Strikeout Game",
+        connection: "Diamondbacks vs. Reds",
+        date: "May 8, 2001 &middot; Bank One Ballpark",
+        stat: "20 K IN 9 INNINGS",
+        desc: "The towering left-hander joined Clemens and Wood in the 20-strikeout club, though the game went to extra innings, meaning his 20 Ks technically came before the Diamondbacks eventually won it in the 11th.",
+        pills: ["Joined the 20-K club", "Game went to 11 innings", "D-backs won it after his exit"],
+        video: "https://www.youtube.com/watch?v=K68oKWM7nqU"
+      },
+      {
+        name: "Max Scherzer's 20-Strikeout Game",
+        connection: "Nationals vs. Tigers",
+        date: "May 11, 2016 &middot; Nationals Park",
+        stat: "20 K, ONE-HIT COMPLETE GAME",
+        desc: "Scherzer tied the modern nine-inning strikeout record against his former team, allowing only a single hit while striking out the side multiple times. It's the most recent addition to the 20-K club.",
+        pills: ["Nationals won 3-2", "Most recent 20-K game", "Allowed just one hit"],
+        video: "https://www.youtube.com/watch?v=nzfpX7fm_IE"
+      }
+    ]
+  },
+  pickoffs: {
+    title: "Best Pick-Offs",
+    desc: "The quiet art of catching a runner leaning the wrong way.",
+    tone: "tone-drop",
+    plays: [
+      {
+        name: "Tippy Martinez's Triple Pickoff",
+        connection: "Orioles vs. Blue Jays",
+        date: "Aug 24, 1983 &middot; Memorial Stadium",
+        stat: "3 PICKOFFS, ONE INNING",
+        desc: "With backup infielder Lenn Sakata catching for the first time since Little League, three straight Blue Jays reached base and tried to run on him. Martinez picked off all three to end the inning &mdash; still the only three-pickoff inning in MLB history. Sakata then hit the walk-off homer.",
+        pills: ["Only 3-pickoff inning ever", "Orioles won 7-3", "Sakata hit walk-off HR same game"],
+        video: "https://www.youtube.com/watch?v=OwqgRKdozew"
+      },
+      {
+        name: "Steve Carlton's Career Record",
+        connection: "144 career pickoffs",
+        date: "1965&ndash;1988 career",
+        stat: "MLB CAREER RECORD",
+        desc: "The Hall of Fame left-hander's deceptive move made him the most prolific picker-off of runners in MLB history, a mark that has stood since his retirement and that no current pitcher is close to threatening.",
+        pills: ["All-time MLB record", "23-year career", "Record has stood for decades"],
+        video: "https://www.youtube.com/watch?v=sIg5KqYqPaA"
+      },
+      {
+        name: "Andy Pettitte's Legendary Move",
+        connection: "~100 career pickoffs",
+        date: "1995&ndash;2010 career",
+        stat: "MOST FEARED MOVE OF HIS ERA",
+        desc: "Pettitte's move to first became so notorious that baserunners around the league simply stopped taking big leads against him, effectively shutting down opposing running games for over a decade of Yankees postseasons.",
+        pills: ["Around 100 career pickoffs", "Five-time World Series champion", "Move studied by later lefties like Max Fried"],
+        video: "https://www.youtube.com/watch?v=Zgao-genNig"
+      },
+      {
+        name: "The 17-Throw Standoff",
+        connection: "Reds pitcher Chris Welsh vs. Vince Coleman",
+        date: "1989 &middot; Riverfront Stadium",
+        stat: "17 PICKOFF THROWS, ONE AT-BAT",
+        desc: "Facing the era's fastest base-stealer, Welsh threw over to first 17 times during a single at-bat trying to keep Coleman from running, drawing boos from his own fans and visible frustration from the broadcast booth. Coleman eventually stole the base anyway.",
+        pills: ["17 throws in one at-bat", "Coleman stole the base regardless", "Welsh got him later in the game"],
+        video: "https://www.youtube.com/watch?v=BZwvXvou_ok"
+      },
+      {
+        name: "George Brett, Picked Off Moments After History",
+        connection: "Royals vs. Angels",
+        date: "Sept 30, 1992 &middot; Anaheim Stadium",
+        stat: "PICKED OFF RIGHT AFTER 3,000TH HIT",
+        desc: "Brett singled for career hit No. 3,000 to a standing ovation and a stopped game for congratulations &mdash; then was promptly picked off first base on the very next pitch, one of baseball's most good-natured ironic moments.",
+        pills: ["Moments after milestone No. 3,000", "Picked off on the next pitch", "Brett laughed it off afterward"],
+        video: "https://www.youtube.com/watch?v=J4xhpzFm-sM"
+      }
+    ]
+  },
+  busch: {
+    title: "Busch League Plays",
+    desc: "The bloopers, blunders, and moments every player wants to forget.",
+    tone: "tone-orange",
+    plays: [
+      {
+        name: "Jose Canseco's Head-Ball Home Run",
+        connection: "Rangers vs. Indians",
+        date: "May 26, 1993 &middot; Cleveland Stadium",
+        stat: "BALL BOUNCES OFF HEAD FOR A HOME RUN",
+        desc: "Tracking a routine fly ball to the warning track, Canseco misjudged it entirely; the ball glanced off the top of his glove, bounced off his head, and sailed over the outfield wall for a home run. Even his own teammates couldn't stop laughing.",
+        pills: ["Turned a routine fly out into a HR", "Replayed for decades on blooper reels", "Canseco laughed it off afterward"],
+        video: "https://www.youtube.com/watch?v=QixQMUu4CKI"
+      },
+      {
+        name: "Steve Lyons Drops His Pants",
+        connection: "Red Sox vs. White Sox",
+        date: "July 16, 1990 &middot; Comiskey Park",
+        stat: "PANTS DROP MID-GAME, IN FAIR TERRITORY",
+        desc: "After diving back into first base safely, Lyons stood up, absentmindedly brushed the dirt off his legs, and pulled his pants down to his ankles in the middle of the infield before realizing what he'd done and yanking them back up.",
+        pills: ["Happened in live game action", "Became an instant blooper classic", "Lyons later joked about it for years"],
+        video: "https://www.youtube.com/watch?v=QLIpmACBq1g"
+      },
+      {
+        name: "Randall Simon and the Sausage Race",
+        connection: "Pirates vs. Brewers",
+        date: "July 9, 2003 &middot; Miller Park",
+        stat: "SWINGS BAT AT RACING MASCOT",
+        desc: "During Milwaukee's between-innings sausage race, Pirates first baseman Randall Simon reached out of the dugout and tapped the Italian sausage racer on the head with his bat, knocking the costumed runner to the ground.",
+        pills: ["Simon was fined and arrested", "Mascot wasn't seriously hurt", "One of baseball's strangest incidents"],
+        video: "https://www.youtube.com/watch?v=CGPmrPFR0oM"
+      },
+      {
+        name: "Manny Cuts Off His Own Center Fielder",
+        connection: "Red Sox vs. Orioles",
+        date: "July 21, 2004 &middot; Fenway Park",
+        stat: "OUTFIELDER INTERCEPTS TEAMMATE'S THROW",
+        desc: "Center fielder Johnny Damon fielded a ball off the wall and fired home to cut down the runner, but Manny Ramirez, for reasons no one has ever fully explained, dove in front of the throw and intercepted it himself. The delay let David Newhan score an inside-the-park home run.",
+        pills: ["Turned an out into an inside-the-park HR", "Damon: “What was he doing?”", "Vintage “Manny being Manny”"],
+        video: "https://www.youtube.com/watch?v=SCdp-pSA8kc"
+      },
+      {
+        name: "The Throw That Found Olbermann's Mom",
+        connection: "Yankees vs. White Sox",
+        date: "June 17, 2000 &middot; Yankee Stadium",
+        stat: "THROWING ERROR SAILS INTO THE STANDS",
+        desc: "In the throes of a career-derailing case of the yips, second baseman Chuck Knoblauch fired a routine throw to first so far off target that it bounced off the Yankees' dugout roof and struck broadcaster Keith Olbermann's mother, seated in the stands, in the face.",
+        pills: ["Threw nowhere near first base", "Hit a spectator in the crowd", "Became shorthand for the “yips”"],
+        video: "https://www.youtube.com/watch?v=dnJFklbt0es"
+      }
+    ]
+  },
+  records: {
+    title: "Home Run Records",
+    desc: "The numbers that define baseball's most chased milestone.",
+    tone: "tone-purple",
+    plays: [
+      {
+        name: "73 in a Season",
+        connection: "Barry Bonds, single-season record",
+        date: "2001 &middot; San Francisco Giants",
+        stat: "73 HOME RUNS",
+        desc: "Bonds broke Mark McGwire's three-year-old record of 70, hitting his 73rd on the final day of the season. It remains the single-season MLB record, though it's permanently tied to the era's steroid controversies.",
+        pills: ["MLB single-season record", "Broke McGwire's 70 (1998)", "Still stands as of 2026"],
+        video: "https://www.youtube.com/watch?v=zosM9cKCqos"
+      },
+      {
+        name: "762 for a Career",
+        connection: "Barry Bonds, career record",
+        date: "Set Aug 7, 2007 &middot; passed Hank Aaron",
+        stat: "762 CAREER HOME RUNS",
+        desc: "Bonds passed Hank Aaron's career mark of 755 in 2007 and finished his career with 762, the current all-time MLB record, ahead of Aaron and Babe Ruth's 714.",
+        pills: ["MLB career record", "Passed Hank Aaron's 755", "Still stands as of 2026"],
+        video: "https://www.youtube.com/watch?v=cL3vNXIsEPM"
+      },
+      {
+        name: "62 for the American League",
+        connection: "Aaron Judge, AL single-season record",
+        date: "Oct 4, 2022 &middot; New York Yankees",
+        stat: "62 HOME RUNS",
+        desc: "Judge broke Roger Maris' 61-year-old American League record, hitting No. 62 in the Yankees' second-to-last game of the season. The chase dominated the sport all September, drawing comparisons to Maris' own 1961 pursuit.",
+        pills: ["AL single-season record", "Broke Maris' 61 (1961)", "Judge won AL MVP that year"],
+        video: "https://www.youtube.com/watch?v=jblL-wh4YmY"
+      },
+      {
+        name: "Passing the Babe",
+        connection: "Hank Aaron's 715th career home run",
+        date: "April 8, 1974 &middot; Atlanta",
+        stat: "715TH CAREER HOME RUN",
+        desc: "Aaron hit his 715th home run to pass Babe Ruth's career record of 714, a mark that had stood for nearly 40 years. Aaron received death threats throughout the chase because of his race, making the moment as significant socially as it was athletically.",
+        pills: ["Broke Ruth's 714 career mark", "Aaron finished with 755", "One of baseball's most significant moments"],
+        video: "https://www.youtube.com/watch?v=QjqYThEVoSQ"
+      },
+      {
+        name: "60 From a Catcher, First Ever",
+        connection: "Cal Raleigh, 2025 season",
+        date: "Sept 24, 2025 &middot; Seattle Mariners",
+        stat: "60 HOME RUNS",
+        desc: "Raleigh became the first catcher and first switch-hitter in MLB history to hit 60 home runs in a season, also setting the Mariners' single-season franchise record along the way in a Mariners AL West title-clinching stretch.",
+        pills: ["First catcher ever to reach 60", "First switch-hitter to reach 60", "Set Mariners' franchise record"],
+        video: "https://www.youtube.com/shorts/dS6rdaoDeYo"
+      }
+    ]
+  }
+};
+
+const NBA_DATA = {
+  dunks: {
+    title: "Legendary Dunks",
+    desc: "The jams that broke ankles, broke rims, and broke the internet decades before the internet existed.",
+    tone: "tone-orange",
+    plays: [
+      {
+        name: "Vince Carter's Dunk of Death",
+        connection: "USA vs. France",
+        date: "Sept 16, 2000 &middot; Sydney Olympics",
+        stat: "POSTERIZING JAM",
+        desc: "Carter caught a lob and rose over 7'2\" French center Frédéric Weis, tucking his knees and clearing Weis's head entirely on the way to the rim. French media nicknamed it “le dunk de la mort” &mdash; the dunk of death &mdash; and it's still shown as a case study in vertical leap.",
+        pills: ["Olympic quarterfinal", "USA won 106-94", "Cleared a 7'2\" defender"],
+        video: "https://www.youtube.com/watch?v=k_uZeCymShQ"
+      },
+      {
+        name: "Jordan's Free-Throw Line Dunk",
+        connection: "1988 Slam Dunk Contest",
+        date: "Feb 6, 1988 &middot; Chicago Stadium",
+        stat: "TAKEOFF FROM THE FOUL LINE",
+        desc: "Recreating Dr. J's 1976 ABA dunk, Jordan took off from at or near the free-throw line, hung in the air with his tongue out, and slammed it home in front of a home Chicago crowd to edge Dominique Wilkins for the title.",
+        pills: ["Home dunk contest", "Edged Dominique Wilkins", "Became the Jumpman logo pose"],
+        video: "https://www.youtube.com/watch?v=rzQAC8kPJxo"
+      },
+      {
+        name: "Dwight Howard's Superman Dunk",
+        connection: "2008 Slam Dunk Contest",
+        date: "Feb 16, 2008 &middot; New Orleans Arena",
+        stat: "CAPE-ASSISTED JAM",
+        desc: "Howard donned a red Superman cape, had a sticker of the S-shield placed on the backboard, and threw down a two-handed dunk while wearing it &mdash; one of the most theatrical entries in dunk contest history.",
+        pills: ["All-Star Weekend", "Wore an actual cape", "Won the contest"],
+        video: "https://www.youtube.com/watch?v=tq4rgd-Vgfs"
+      },
+      {
+        name: "Blake Griffin Over the Car",
+        connection: "2011 Slam Dunk Contest",
+        date: "Feb 19, 2011 &middot; Staples Center",
+        stat: "DUNK OVER A KIA",
+        desc: "Griffin jumped over the hood of a Kia sedan with a gospel choir singing behind him, catching a bounce pass through the sunroof from teammate Baron Davis before slamming it home &mdash; one of the most-watched dunk contest entries ever.",
+        pills: ["All-Star Weekend", "Assist came through a sunroof", "Won the contest"],
+        video: "https://www.youtube.com/watch?v=P0C6uTGtZTc"
+      }
+    ]
+  },
+  defense: {
+    title: "Highlight-Reel Defense",
+    desc: "The blocks and steals that swung championships and got their own nicknames.",
+    tone: "tone-navy",
+    plays: [
+      {
+        name: "The Block",
+        connection: "LeBron James on Andre Iguodala",
+        date: "June 19, 2016 &middot; NBA Finals Game 7",
+        stat: "CHASEDOWN BLOCK",
+        desc: "With the score tied late in the fourth quarter, James sprinted the length of the floor to swat Iguodala's layup attempt off the glass, preserving the tie and helping Cleveland complete the first 3-1 Finals comeback in NBA history.",
+        pills: ["Tied late in Game 7", "Cavaliers won 93-89", "First 3-1 Finals comeback"],
+        video: "https://www.youtube.com/watch?v=Hgade7_mjHc"
+      },
+      {
+        name: "Havlicek Stole the Ball",
+        connection: "John Havlicek vs. Wilt Chamberlain's 76ers",
+        date: "April 15, 1965 &middot; Eastern Conference Finals Game 7",
+        stat: "SERIES-SEALING STEAL",
+        desc: "With Boston clinging to a one-point lead and five seconds left, Havlicek deflected a Philadelphia inbound pass to a teammate, sealing the win. Radio announcer Johnny Most's call &mdash; “Havlicek stole the ball!” &mdash; became one of basketball's most famous broadcast moments.",
+        pills: ["5 seconds remaining", "Celtics won 110-109", "Iconic Johnny Most call"],
+        video: "https://www.youtube.com/watch?v=J4fTjcJwImw"
+      },
+      {
+        name: "Larry Bird's Steal",
+        connection: "vs. Detroit Pistons",
+        date: "May 26, 1987 &middot; Eastern Conference Finals Game 5",
+        stat: "GAME-SAVING STEAL",
+        desc: "Trailing by one with five seconds left, Bird jumped a lazy Isiah Thomas inbound pass along the sideline and fed Dennis Johnson for the winning layup, flipping a near-loss into a signature Celtics win.",
+        pills: ["Trailing with 5 seconds left", "Celtics won 108-107", "Fed the game-winning layup"],
+        video: "https://www.youtube.com/watch?v=j1Du029dnpM"
+      },
+      {
+        name: "Mutombo's Miracle",
+        connection: "8-seed Nuggets vs. 1-seed SuperSonics",
+        date: "May 7, 1994 &middot; NBA Playoffs Game 5",
+        stat: "SERIES-CLINCHING DEFENSE",
+        desc: "Denver's Dikembe Mutombo anchored a defensive effort that finished off the first 8-over-1 upset in NBA playoff history, then collapsed to the floor cradling the ball in his signature pose of disbelief and joy.",
+        pills: ["First 8-over-1 upset", "Nuggets won in overtime", "Mutombo's iconic floor pose"],
+        video: "https://www.youtube.com/watch?v=8lakSEK-edQ"
+      }
+    ]
+  },
+  clutch: {
+    title: "Buzzer-Beaters & Clutch Shots",
+    desc: "When the clock hit zero and the ball was still in the air.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "The Shot",
+        connection: "Michael Jordan over Craig Ehlo",
+        date: "May 7, 1989 &middot; First Round Game 5",
+        stat: "SERIES-WINNING JUMPER",
+        desc: "With Chicago down one and time running out, Jordan caught an inbound pass, drove right, and hit a double-clutch jumper over Ehlo at the buzzer to eliminate the Cavaliers, punching his fist in the air as he fell to the floor.",
+        pills: ["0:03 remaining", "Bulls won 101-100", "Eliminated Cleveland"],
+        video: "https://www.youtube.com/watch?v=L1ChoqrQCrE"
+      },
+      {
+        name: "Ray Allen's Game-Tying Three",
+        connection: "Miami Heat vs. San Antonio Spurs",
+        date: "June 18, 2013 &middot; NBA Finals Game 6",
+        stat: "GAME-TYING 3-POINTER",
+        desc: "Down three with under six seconds left and facing elimination, Allen retreated to the top of the arc, caught a scramble pass, and drained a corner-adjacent three to force overtime. Miami won the game and the series.",
+        pills: ["5.2 seconds remaining", "Heat won in OT, 103-100", "Facing elimination"],
+        video: "https://www.youtube.com/watch?v=NI4BkIEEGw8"
+      },
+      {
+        name: "Kawhi's Four-Bounce Buzzer-Beater",
+        connection: "Toronto Raptors vs. Philadelphia 76ers",
+        date: "May 12, 2019 &middot; Second Round Game 7",
+        stat: "SERIES-WINNING SHOT",
+        desc: "Leonard caught a pass with 4.2 seconds left, dribbled twice, and rose over Joel Embiid for a fadeaway that bounced on the rim four times before dropping through as the buzzer sounded, sending Toronto to the Conference Finals on the way to a title.",
+        pills: ["Bounced 4 times on the rim", "Raptors won 92-90", "Series-clinching Game 7"],
+        video: "https://www.youtube.com/watch?v=75iExVNvrWw"
+      },
+      {
+        name: "Dame Time",
+        connection: "Portland Trail Blazers vs. Oklahoma City Thunder",
+        date: "April 23, 2019 &middot; First Round Game 5",
+        stat: "SERIES-WINNING THREE",
+        desc: "With the score tied and time expiring, Lillard pulled up from well beyond the arc over Paul George's outstretched hand, drained the series-winner, and waved goodbye to the Thunder bench as he walked off the court.",
+        pills: ["0:00 on the clock", "Blazers won 118-115", "Eliminated Oklahoma City"],
+        video: "https://www.youtube.com/watch?v=HMm5NtXLVDY"
+      }
+    ]
+  },
+  records: {
+    title: "Scoring Records",
+    desc: "The numbers that redefined what was possible on a basketball court.",
+    tone: "tone-purple",
+    plays: [
+      {
+        name: "Wilt's 100-Point Game",
+        connection: "Philadelphia Warriors vs. New York Knicks",
+        date: "March 2, 1962 &middot; Hershey, Pennsylvania",
+        stat: "100 POINTS",
+        desc: "Chamberlain scored 100 points in a single game, a single-game scoring record that has never been approached since. The game wasn't televised, and the only photo evidence is a locker-room shot of Wilt holding a sign reading “100.”",
+        pills: ["Still the NBA single-game record", "Warriors won 169-147", "No video footage exists"],
+        video: "https://www.youtube.com/watch?v=K5VLz_ciou0"
+      },
+      {
+        name: "Kobe's 81-Point Game",
+        connection: "Los Angeles Lakers vs. Toronto Raptors",
+        date: "Jan 22, 2006 &middot; Staples Center",
+        stat: "81 POINTS",
+        desc: "Down by 18 at halftime, Bryant took over, scoring 55 points in the second half alone to finish with 81 &mdash; the second-highest single-game total in NBA history, trailing only Chamberlain's 100.",
+        pills: ["Second-highest total ever", "Lakers won 122-104", "55 points in the second half"],
+        video: "https://www.youtube.com/watch?v=FeXZY4eVLlo"
+      },
+      {
+        name: "LeBron Passes Kareem",
+        connection: "Los Angeles Lakers vs. Oklahoma City Thunder",
+        date: "Feb 7, 2023 &middot; Crypto.com Arena",
+        stat: "NEW ALL-TIME SCORING LEADER",
+        desc: "James hit a fadeaway jumper to reach 38,388 career points, passing Kareem Abdul-Jabbar's mark that had stood for nearly 39 years to become the NBA's all-time leading scorer.",
+        pills: ["Broke a 39-year-old record", "Kareem was in attendance", "Game paused for a tribute"],
+        video: "https://www.youtube.com/watch?v=E5JBSJa4flo"
+      },
+      {
+        name: "Steph Curry's 3-Point Record",
+        connection: "Golden State Warriors vs. New York Knicks",
+        date: "Dec 14, 2021 &middot; Madison Square Garden",
+        stat: "MOST 3-POINTERS EVER",
+        desc: "Curry drained his 2,974th career three-pointer to pass Ray Allen for the all-time record, doing it at Madison Square Garden with Allen himself in attendance to congratulate him afterward.",
+        pills: ["Passed Ray Allen's record", "Reached the mark at MSG", "Allen was on hand to congratulate him"],
+        video: "https://www.youtube.com/watch?v=cPi2nneesNM"
+      }
+    ]
+  }
+};
+
+const SOCCER_DATA = {
+  goals: {
+    title: "Greatest Goals",
+    desc: "The strikes that get replayed every time the sport needs to explain itself to a newcomer.",
+    tone: "tone-td",
+    plays: [
+      {
+        name: "Maradona's Goal of the Century",
+        connection: "Argentina vs. England",
+        date: "June 22, 1986 &middot; World Cup Quarterfinal",
+        stat: "60-YARD SOLO RUN",
+        desc: "Picking the ball up in his own half, Maradona beat five England players on a diagonal run before rounding the goalkeeper and finishing &mdash; later voted FIFA's Goal of the Century in a fan poll.",
+        pills: ["Beat 5 defenders", "Argentina won 2-1", "FIFA Goal of the Century"],
+        video: "https://www.youtube.com/watch?v=Da_CDPRG2j0"
+      },
+      {
+        name: "Zidane's Volley",
+        connection: "Real Madrid vs. Bayer Leverkusen",
+        date: "May 15, 2002 &middot; UEFA Champions League Final",
+        stat: "LEFT-FOOTED VOLLEY",
+        desc: "Roberto Carlos lofted a cross from the left, and Zidane met it on the half-volley with his weaker left foot, drilling it into the top corner from the edge of the box in the biggest game in club football.",
+        pills: ["Champions League Final", "Real Madrid won 2-1", "Voted among the greatest CL goals ever"],
+        video: "https://www.youtube.com/watch?v=4TuggkDPw6A"
+      },
+      {
+        name: "Roberto Carlos's Impossible Free Kick",
+        connection: "Brazil vs. France",
+        date: "June 3, 1997 &middot; Tournoi de France",
+        stat: "CURLING FREE KICK",
+        desc: "From 35 yards out at a wide angle, Carlos struck a free kick that appeared to be sailing yards wide before it curled violently back and into the net, so improbable that a ball boy visibly flinched as it passed him.",
+        pills: ["35 yards, wide angle", "Brazil won 1-0", "Ball boy ducked as it curved in"],
+        video: "https://www.youtube.com/watch?v=crKwlbwvr88"
+      },
+      {
+        name: "Messi's Maradona-esque Solo Run",
+        connection: "Barcelona vs. Getafe",
+        date: "April 18, 2007 &middot; Copa del Rey Semifinal",
+        stat: "SOLO RUN FROM THE HALFWAY LINE",
+        desc: "Picking the ball up near the halfway line, a 19-year-old Messi beat several defenders on a driving run before rounding the goalkeeper to score &mdash; a goal so similar to Maradona's 1986 effort that replays are shown side by side.",
+        pills: ["Nearly identical to Maradona's 1986 goal", "Barcelona won 5-2 on aggregate", "Messi was 19 years old"],
+        video: "https://www.youtube.com/watch?v=jKRCDEXa06g"
+      }
+    ]
+  },
+  saves: {
+    title: "Iconic Saves",
+    desc: "The stops that kept legends off the scoresheet and goalkeepers in the history books.",
+    tone: "tone-navy",
+    plays: [
+      {
+        name: "The Save of the Century",
+        connection: "Gordon Banks denies Pelé",
+        date: "June 7, 1970 &middot; World Cup Group Stage",
+        stat: "DIVING SAVE ACROSS GOAL",
+        desc: "Pelé rose to head a downward cross toward the far corner, shouting “goal” as he landed. Banks, starting on the near post, somehow flung himself across goal and flicked the ball up and over the bar, drawing a stunned reaction from Pelé himself.",
+        pills: ["Pelé thought it was a goal", "Brazil won 1-0 anyway", "Still called the greatest save ever"],
+        video: "https://www.youtube.com/watch?v=HNLam4RAbg8"
+      },
+      {
+        name: "Casillas's Double Save",
+        connection: "Spain vs. Netherlands",
+        date: "July 11, 2010 &middot; World Cup Final",
+        stat: "SPRAWLING DOUBLE SAVE",
+        desc: "With the final scoreless deep into the second half, Arjen Robben broke through one-on-one; Casillas stretched out a leg to block the initial shot, then recovered to smother the rebound, keeping the game alive until Spain's extra-time winner.",
+        pills: ["World Cup Final, scoreless", "Spain won 1-0 in extra time", "Spain's first World Cup title"],
+        video: "https://www.youtube.com/watch?v=s7I4a6Z07Uk"
+      },
+      {
+        name: "Martinez's Shootout Heroics",
+        connection: "Argentina vs. France",
+        date: "Dec 18, 2022 &middot; World Cup Final",
+        stat: "PENALTY SHOOTOUT SAVE",
+        desc: "After a 3-3 thriller in normal and extra time, Emiliano Martínez saved a penalty from Kingsley Coman in the shootout, part of a tournament of shot-stopping that helped Argentina finally win Messi his World Cup.",
+        pills: ["Shootout after a 3-3 draw", "Argentina won the shootout 4-2", "Messi's first World Cup title"],
+        video: "https://www.youtube.com/watch?v=rJmdmgRIb1g"
+      },
+      {
+        name: "Pickford's Shootout Save",
+        connection: "England vs. Colombia",
+        date: "July 3, 2018 &middot; World Cup Round of 16",
+        stat: "PENALTY SHOOTOUT SAVE",
+        desc: "With the shootout tied, Jordan Pickford dove low to his right to save Carlos Bacca's spot kick, helping England win a World Cup penalty shootout for the first time in the country's history.",
+        pills: ["England's first WC shootout win", "England won the shootout 4-3", "Saved from Carlos Bacca"],
+        video: "https://www.youtube.com/watch?v=NtvUzy00DuU"
+      }
+    ]
+  },
+  worldcup: {
+    title: "World Cup Moments",
+    desc: "The games and moments that became bigger than the tournament itself.",
+    tone: "tone-purple",
+    plays: [
+      {
+        name: "Hurst's Final Hat-Trick",
+        connection: "England vs. West Germany",
+        date: "July 30, 1966 &middot; World Cup Final",
+        stat: "ONLY WORLD CUP FINAL HAT-TRICK",
+        desc: "Geoff Hurst scored three times, including a contested extra-time goal that may not have fully crossed the line, to remain the only player ever to score a hat-trick in a World Cup Final as England won on home soil.",
+        pills: ["England's only World Cup title", "England won 4-2 (AET)", "Only Final hat-trick in history"],
+        video: "https://www.youtube.com/watch?v=qxnFW3LjDIg"
+      },
+      {
+        name: "The Mineirazo",
+        connection: "Brazil vs. Germany",
+        date: "July 8, 2014 &middot; World Cup Semifinal",
+        stat: "BRAZIL 1-7 GERMANY",
+        desc: "Host nation Brazil, playing without injured star Neymar, collapsed at home, conceding five goals in a 19-minute stretch of the first half. It remains the most lopsided semifinal result in World Cup history.",
+        pills: ["Germany scored 5 goals in 19 minutes", "Final score 7-1", "Worst home-tournament result for a host"],
+        video: "https://www.youtube.com/watch?v=aE4BdIP6bvc"
+      },
+      {
+        name: "Zidane's Headbutt",
+        connection: "France vs. Italy",
+        date: "July 9, 2006 &middot; World Cup Final",
+        stat: "SENT OFF IN HIS FINAL MATCH",
+        desc: "In what was announced as his final professional match, Zidane head-butted Marco Materazzi in the chest after a provocation and was sent off; Italy went on to win the shootout, overshadowing Zidane's otherwise legendary career finale.",
+        pills: ["Zidane's final career match", "Italy won on penalties", "One of football's most infamous moments"],
+        video: "https://www.youtube.com/watch?v=jb16JvUCVQs"
+      },
+      {
+        name: "Messi Finally Wins It",
+        connection: "Argentina vs. France",
+        date: "Dec 18, 2022 &middot; World Cup Final",
+        stat: "ARGENTINA'S THIRD TITLE",
+        desc: "In arguably the greatest World Cup Final ever played, Messi scored twice and set up a third as Argentina blew a two-goal lead to Mbappé's hat-trick before winning on penalties, finally completing Messi's collection of major honors.",
+        pills: ["Ended 3-3 after extra time", "Argentina won the shootout", "Messi's first and only World Cup"],
+        video: "https://www.youtube.com/watch?v=Mxkg3qLIPC8"
+      }
+    ]
+  },
+  comebacks: {
+    title: "Greatest Comebacks",
+    desc: "When the game looked over and someone forgot to tell one of the teams.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "The Miracle of Istanbul",
+        connection: "Liverpool vs. AC Milan",
+        date: "May 25, 2005 &middot; Champions League Final",
+        stat: "DOWN 3-0 AT HALFTIME",
+        desc: "Milan led 3-0 at halftime and looked to have the game won, but Liverpool scored three goals in six second-half minutes to level it, then won on penalties &mdash; still the benchmark for football comebacks.",
+        pills: ["3 goals in 6 minutes", "Liverpool won the shootout", "Widely considered football's greatest comeback"],
+        video: "https://www.youtube.com/watch?v=3ojXHf293M8"
+      },
+      {
+        name: "La Remontada",
+        connection: "Barcelona vs. Paris Saint-Germain",
+        date: "March 8, 2017 &middot; Champions League Round of 16",
+        stat: "OVERTURNED A 4-0 DEFICIT",
+        desc: "Trailing 4-0 from the first leg, Barcelona scored six goals at home, including three in the final seven minutes, capped by a Sergi Roberto strike deep into stoppage time to complete an all-time European comeback.",
+        pills: ["Overturned a 4-0 first-leg deficit", "Won the second leg 6-1", "Winner came in the 95th minute"],
+        video: "https://www.youtube.com/watch?v=h4m68r8kWAc"
+      },
+      {
+        name: "The Miracle of Bern",
+        connection: "West Germany vs. Hungary",
+        date: "July 4, 1954 &middot; World Cup Final",
+        stat: "CAME BACK FROM 2-0 DOWN",
+        desc: "Hungary's legendary “Golden Team,” unbeaten in four years, raced to a 2-0 lead inside ten minutes. West Germany fought back to win 3-2, a result so unexpected in post-war Germany that it's still referred to as a national turning point.",
+        pills: ["Hungary hadn't lost in 4 years", "West Germany won 3-2", "Called a turning point for postwar Germany"],
+        video: "https://www.youtube.com/watch?v=2qCZe6Ki-zk"
+      },
+      {
+        name: "Solskjær Has Won It",
+        connection: "Manchester United vs. Bayern Munich",
+        date: "May 26, 1999 &middot; Champions League Final",
+        stat: "TWO GOALS IN STOPPAGE TIME",
+        desc: "Trailing 1-0 deep into stoppage time, Manchester United scored twice in as many minutes &mdash; through Teddy Sheringham and then Ole Gunnar Solskjær &mdash; to complete an unprecedented Treble-clinching final.",
+        pills: ["Trailed until the 91st minute", "Won 2-1 in stoppage time", "Completed the Treble"],
+        video: "https://www.youtube.com/watch?v=oTgaI5QbNLc"
+      }
+    ]
+  }
+};
+
+const NHL_DATA = {
+  goals: {
+    title: "Legendary Goals",
+    desc: "The shots that get replayed every time the sport wants to prove it belongs on the biggest stage.",
+    tone: "tone-td",
+    plays: [
+      {
+        name: "Bobby Orr's Flying Goal",
+        connection: "Boston Bruins vs. St. Louis Blues",
+        date: "May 10, 1970 &middot; Stanley Cup Final Game 4",
+        stat: "OVERTIME, CUP-CLINCHING GOAL",
+        desc: "Orr slid a pass to Derek Sanderson, took the return feed, and slammed it past the goaltender before being tripped &mdash; the resulting photo of him flying through the air, arms raised, became the most famous image in hockey history.",
+        pills: ["Overtime winner", "Bruins swept the series", "Most famous photo in hockey"],
+        video: "https://www.youtube.com/watch?v=pZpSv9fy0QM"
+      },
+      {
+        name: "Lemieux's Canada Cup Winner",
+        connection: "Mario Lemieux, assisted by Wayne Gretzky",
+        date: "Sept 15, 1987 &middot; Canada Cup Final Game 3",
+        stat: "GAME- AND SERIES-WINNING GOAL",
+        desc: "Late in the third period of a tied deciding game, Gretzky carried the puck on a 2-on-1 and slid a perfect pass to Lemieux, who one-timed it past the Soviet goaltender to complete a best-of-three sweep many call the greatest hockey ever played.",
+        pills: ["Deciding Game 3", "Canada won the series", "Widely called hockey's greatest series"],
+        video: "https://www.youtube.com/watch?v=Frtft0LUMiE"
+      },
+      {
+        name: "Miracle on Ice Winner",
+        connection: "Mike Eruzione, USA vs. USSR",
+        date: "Feb 22, 1980 &middot; Winter Olympics",
+        stat: "GAME-WINNING GOAL",
+        desc: "A team of American college players scored the winning goal against the heavily favored Soviet squad, completing one of the greatest upsets in sports history and inspiring broadcaster Al Michaels's famous call: “Do you believe in miracles?”",
+        pills: ["Amateur team beat the Soviets", "USA won 4-3", "Led to the gold medal"],
+        video: "https://www.youtube.com/watch?v=QX5hiem8YBU"
+      },
+      {
+        name: "Paul Henderson's Series Winner",
+        connection: "Canada vs. USSR",
+        date: "Sept 28, 1972 &middot; Summit Series Game 8",
+        stat: "SERIES-WINNING GOAL, 0:34 LEFT",
+        desc: "With the eight-game series tied and national pride on the line, Henderson scored with 34 seconds remaining to win it for Canada, a goal still shown in Canadian classrooms as a defining cultural moment.",
+        pills: ["0:34 remaining", "Canada won the series", "Defining Canadian sports moment"],
+        video: "https://www.youtube.com/watch?v=FMiMzq0YTwc"
+      }
+    ]
+  },
+  saves: {
+    title: "Iconic Saves",
+    desc: "The goaltending that turned sure goals into legend.",
+    tone: "tone-navy",
+    plays: [
+      {
+        name: "Hasek's Golden Shutout Run",
+        connection: "Dominik Hasek, Czech Republic",
+        date: "Feb 1998 &middot; Nagano Olympics",
+        stat: "SHUTOUT SEMIFINAL SHOOTOUT",
+        desc: "Hasek stopped every shot he faced in a semifinal shootout against Canada and then shut out Russia in the final, single-handedly carrying the Czech Republic to its first Olympic gold medal in men's hockey.",
+        pills: ["Perfect semifinal shootout", "Shut out Russia in the final", "First Czech Olympic gold"],
+        video: "https://www.youtube.com/watch?v=A9vv38T521E"
+      },
+      {
+        name: "Patrick Roy's Wink",
+        connection: "vs. Los Angeles Kings' Tomas Sandstrom",
+        date: "May 1993 &middot; Stanley Cup Playoffs",
+        stat: "SIGNATURE PLAYOFF MOMENT",
+        desc: "After robbing Sandstrom point-blank, Roy turned and winked at him on the bench, a moment of pure confidence during a playoff run in which Montreal won ten straight overtime games en route to the Stanley Cup.",
+        pills: ["Part of a 10-0 OT playoff run", "Canadiens won the Cup", "Roy won the Conn Smythe"],
+        video: "https://www.youtube.com/watch?v=BGwUM8HQtBc"
+      },
+      {
+        name: "Tim Thomas's Cup Run",
+        connection: "Boston Bruins vs. Vancouver Canucks",
+        date: "June 2011 &middot; Stanley Cup Final",
+        stat: "RECORD SAVE PERCENTAGE",
+        desc: "Thomas posted a .940 save percentage across the Final, including a 37-save shutout in the decisive Game 7 on the road, winning the Conn Smythe as playoff MVP in one of the best goaltending postseasons ever recorded.",
+        pills: ["37 saves in Game 7", "Bruins won the Cup", "Won the Conn Smythe"],
+        video: "https://www.youtube.com/watch?v=WTa03Gab8W8"
+      },
+      {
+        name: "Fleury's Game 7 Save",
+        connection: "Pittsburgh Penguins vs. Detroit Red Wings",
+        date: "June 12, 2009 &middot; Stanley Cup Final Game 7",
+        stat: "SERIES-SAVING PAD STOP",
+        desc: "With Pittsburgh clinging to a one-goal lead in the final seconds, Fleury sprawled across the crease to stop a point-blank shot from Nicklas Lidstrom, preserving the Penguins' first Stanley Cup in 17 years.",
+        pills: ["Final seconds of Game 7", "Penguins won 2-1", "First Cup in 17 years"],
+        video: "https://www.youtube.com/watch?v=FRh3IfuoWHw"
+      }
+    ]
+  },
+  overtime: {
+    title: "Overtime Heroics",
+    desc: "Sudden death, sudden hero.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "Crosby's Golden Goal",
+        connection: "Canada vs. USA",
+        date: "Feb 28, 2010 &middot; Vancouver Olympics",
+        stat: "OVERTIME GOLD-MEDAL WINNER",
+        desc: "In overtime of the gold medal game on home ice, Crosby collected a pass and beat American goaltender Ryan Miller for the winner, an instant that's simply known in Canada as “the Golden Goal.”",
+        pills: ["Olympic gold medal game", "Canada won 3-2 (OT)", "Called simply “the Golden Goal”"],
+        video: "https://www.youtube.com/watch?v=GBMriA6maIU"
+      },
+      {
+        name: "Brett Hull's Controversial Cup Winner",
+        connection: "Dallas Stars vs. Buffalo Sabres",
+        date: "June 19, 1999 &middot; Stanley Cup Final Game 6",
+        stat: "TRIPLE-OVERTIME CUP WINNER",
+        desc: "Hull scored the Cup-clinching goal in triple overtime with his skate arguably in the crease, which would have been disallowed under the rule as written; the goal stood, and the ensuing debate over the “skate in the crease” lasted years.",
+        pills: ["Triple overtime", "Stars won the Cup", "Still debated by fans today"],
+        video: "https://www.youtube.com/watch?v=vF_LRVuhNa4"
+      },
+      {
+        name: "Kane's Instant Cup Winner",
+        connection: "Chicago Blackhawks vs. Philadelphia Flyers",
+        date: "June 9, 2010 &middot; Stanley Cup Final Game 6",
+        stat: "OVERTIME CUP WINNER",
+        desc: "Kane's shot from a tight angle snuck in so fast that most players on the ice didn't realize it had gone in, and he was already celebrating alone before anyone else reacted, ending Chicago's 49-year Cup drought.",
+        pills: ["Overtime winner", "Ended a 49-year Cup drought", "Nobody realized it went in at first"],
+        video: "https://www.youtube.com/watch?v=Yy4UZbtxxkY"
+      },
+      {
+        name: "Bobby Baun's Broken-Leg Goal",
+        connection: "Toronto Maple Leafs vs. Detroit Red Wings",
+        date: "April 23, 1964 &middot; Stanley Cup Final Game 6",
+        stat: "OVERTIME GOAL ON A FRACTURED ANKLE",
+        desc: "Baun was carried off after blocking a shot with his leg, then returned with it frozen and scored the overtime winner, only learning after the series that the leg was actually fractured.",
+        pills: ["Played on a fractured ankle", "Leafs won in overtime", "Leafs won the Cup two days later"],
+        video: "https://www.youtube.com/watch?v=Ex_TeMhF2XU"
+      }
+    ]
+  },
+  records: {
+    title: "Records & Milestones",
+    desc: "The numbers and nights that redefined the record book.",
+    tone: "tone-purple",
+    plays: [
+      {
+        name: "Gretzky Passes Gordie Howe",
+        connection: "Edmonton Oilers vs. Los Angeles Kings",
+        date: "Oct 15, 1989 &middot; Northlands Coliseum",
+        stat: "NEW ALL-TIME POINTS LEADER",
+        desc: "Gretzky scored the goal that made him the NHL's all-time leading scorer, passing Gordie Howe's career points record in front of a crowd that included Howe himself, who was on hand to congratulate him.",
+        pills: ["Broke Gordie Howe's record", "Howe was in attendance", "Play was stopped for a tribute"],
+        video: "https://www.youtube.com/watch?v=bWK5yRZpbR0"
+      },
+      {
+        name: "Ovechkin Passes The Great One",
+        connection: "Washington Capitals vs. New York Islanders",
+        date: "April 6, 2024 &middot; UBS Arena",
+        stat: "NEW ALL-TIME GOALS LEADER",
+        desc: "Ovechkin scored his 895th career goal to pass Wayne Gretzky's long-standing all-time goals record, a mark that had been considered nearly untouchable for over two decades.",
+        pills: ["Broke a 894-goal record", "Considered nearly unbreakable", "Gretzky congratulated him publicly"],
+        video: "https://www.youtube.com/watch?v=9xd8pB72yMQ"
+      },
+      {
+        name: "Brodeur's Wins Record",
+        connection: "New Jersey Devils vs. Chicago Blackhawks",
+        date: "March 17, 2009 &middot; Prudential Center",
+        stat: "NEW ALL-TIME GOALTENDER WINS RECORD",
+        desc: "Brodeur earned his 552nd career win to pass Patrick Roy for the most victories by a goaltender in NHL history, a record he continued to extend for years afterward.",
+        pills: ["Passed Patrick Roy's 551 wins", "Devils won 3-2", "Record still stands as of 2026"],
+        video: "https://www.youtube.com/watch?v=LMQW0J-MR8o"
+      },
+      {
+        name: "Chara's Hardest Shot Ever Recorded",
+        connection: "NHL All-Star Skills Competition",
+        date: "Jan 28, 2012 &middot; Ottawa",
+        stat: "108.8 MPH SLAP SHOT",
+        desc: "Chara's slap shot registered at 108.8 miles per hour in the hardest shot competition, still the fastest shot ever officially recorded at an NHL event.",
+        pills: ["Official NHL record", "All-Star Skills Competition", "Unbroken as of 2026"],
+        video: "https://www.youtube.com/watch?v=KB_ZDF0tZHQ"
+      }
+    ]
+  }
+};
+
+const GOLF_DATA = {
+  shots: {
+    title: "Iconic Shots",
+    desc: "The swings that get replayed every time the sport needs to explain itself.",
+    tone: "tone-td",
+    plays: [
+      {
+        name: "The Shot Heard Round the World",
+        connection: "Gene Sarazen, 1935 Masters",
+        date: "April 7, 1935 &middot; Augusta National, Final Round",
+        stat: "DOUBLE EAGLE ON THE 15TH",
+        desc: "Trailing by three, Sarazen holed a 4-wood from 235 yards for a double eagle on the par-5 15th, erasing the deficit in one swing. He went on to win the playoff, and the shot is credited with putting the young Masters tournament on the map.",
+        pills: ["235-yard 4-wood", "Erased a 3-shot deficit", "Won the playoff the next day"],
+        video: "https://www.youtube.com/watch?v=t2kDdTDM2kg"
+      },
+      {
+        name: "Tiger's Chip-In",
+        connection: "2005 Masters, 16th hole",
+        date: "April 10, 2005 &middot; Augusta National, Final Round",
+        stat: "CHIP-IN FOR BIRDIE",
+        desc: "Woods's chip from well off the green rolled slowly toward the hole, paused for a beat on the lip with a Nike swoosh visible to the cameras, and dropped for birdie &mdash; one of the most replayed shots in golf broadcast history.",
+        pills: ["Paused on the lip before dropping", "Went on to win in a playoff", "Nike logo visible made it iconic"],
+        video: "https://www.youtube.com/watch?v=B_tkJEAGMDE"
+      },
+      {
+        name: "Larry Mize's Miracle Chip",
+        connection: "1987 Masters Playoff",
+        date: "April 12, 1987 &middot; Augusta National, Playoff",
+        stat: "140-FOOT CHIP-IN TO WIN",
+        desc: "In a sudden-death playoff against Greg Norman, Mize chipped in from 140 feet off the green on the second playoff hole to win, one of the most improbable finishes in major championship history.",
+        pills: ["Sudden-death playoff", "Chipped in from 140 feet", "Beat Greg Norman"],
+        video: "https://www.youtube.com/watch?v=v1k62_1g7b0"
+      },
+      {
+        name: "Justin Leonard's Ryder Cup Putt",
+        connection: "1999 Ryder Cup, Brookline",
+        date: "Sept 26, 1999 &middot; The Country Club",
+        stat: "45-FOOT CLINCHING PUTT",
+        desc: "Leonard drained a 45-foot putt to complete the largest final-day comeback in Ryder Cup history, triggering a wild celebration on the green while opponent José María Olazábal still had a putt of his own remaining.",
+        pills: ["Largest Ryder Cup comeback", "USA won the Cup", "Celebration controversy followed"],
+        video: "https://www.youtube.com/watch?v=0PoJ5el9Oug"
+      }
+    ]
+  },
+  majors: {
+    title: "Major Moments",
+    desc: "The championship rounds that became bigger than the tournament itself.",
+    tone: "tone-purple",
+    plays: [
+      {
+        name: "Ouimet Shocks the Stars",
+        connection: "Francis Ouimet, 1913 U.S. Open",
+        date: "Sept 20, 1913 &middot; The Country Club, Brookline",
+        stat: "20-YEAR-OLD AMATEUR WINS",
+        desc: "A 20-year-old amateur and former caddie who lived across the street from the course beat British stars Harry Vardon and Ted Ray in a playoff, a result credited with sparking golf's popularity in the United States.",
+        pills: ["Beat two of the sport's biggest stars", "Won as an amateur", "Sparked American golf's popularity"],
+        video: "https://www.youtube.com/watch?v=pStRBSquyZQ"
+      },
+      {
+        name: "The Bear Roars at 46",
+        connection: "Jack Nicklaus, 1986 Masters",
+        date: "April 13, 1986 &middot; Augusta National, Final Round",
+        stat: "FINAL-ROUND 65",
+        desc: "Written off by most as too old to contend, Nicklaus shot a back-nine 30 on Sunday to win his sixth Masters at age 46, still the oldest winner in tournament history.",
+        pills: ["Back-nine 30", "Oldest Masters champion ever", "Sixth green jacket"],
+        video: "https://www.youtube.com/watch?v=vbsVaBDRtBI"
+      },
+      {
+        name: "Tiger's Record Masters Win",
+        connection: "Tiger Woods, 1997 Masters",
+        date: "April 13, 1997 &middot; Augusta National, Final Round",
+        stat: "WON BY 12 STROKES",
+        desc: "At 21, Woods won his first major by a record 12 strokes, the largest margin of victory in Masters history, announcing a new era for the sport.",
+        pills: ["Won by 12 strokes", "Youngest Masters champion", "Largest margin in tournament history"],
+        video: "https://www.youtube.com/watch?v=4P5_Ld07sMA"
+      },
+      {
+        name: "Payne Stewart's Pinehurst Fist Pump",
+        connection: "Payne Stewart, 1999 U.S. Open",
+        date: "June 20, 1999 &middot; Pinehurst No. 2",
+        stat: "15-FOOT PAR PUTT TO WIN",
+        desc: "Stewart sank a 15-foot par putt on the 72nd hole to win his second U.S. Open, then grabbed the face of runner-up Phil Mickelson to remind him he was about to become a father &mdash; a sportsmanship moment that became more poignant after Stewart's death months later.",
+        pills: ["Won on the 72nd hole", "Second U.S. Open title", "Enduring image of the tournament"],
+        video: "https://www.youtube.com/watch?v=Q87TbZgYZuc"
+      }
+    ]
+  },
+  comebacks: {
+    title: "Greatest Comebacks",
+    desc: "Ageless, injured, or written off &mdash; and still standing at the end.",
+    tone: "tone-flag",
+    plays: [
+      {
+        name: "Hogan's Miracle at Merion",
+        connection: "Ben Hogan, 1950 U.S. Open",
+        date: "June 10, 1950 &middot; Merion Golf Club",
+        stat: "WON 16 MONTHS AFTER A NEAR-FATAL CRASH",
+        desc: "Sixteen months after a head-on car collision nearly cost him his legs, Hogan walked 36 holes on the final day and won an 18-hole playoff, completing one of the most remarkable comebacks in sports history.",
+        pills: ["16 months after a near-fatal crash", "Walked 36 holes in one day", "Won the 18-hole playoff"],
+        video: "https://www.youtube.com/watch?v=naiAcCoTgsE"
+      },
+      {
+        name: "Tiger's 2019 Masters Comeback",
+        connection: "Tiger Woods, 2019 Masters",
+        date: "April 14, 2019 &middot; Augusta National, Final Round",
+        stat: "FIRST MAJOR IN 11 YEARS",
+        desc: "After years of back surgeries, personal struggles, and a career many assumed was over, Woods held his nerve down the stretch to win his fifth green jacket, his first major title in 11 years.",
+        pills: ["First major since 2008", "Fifth Masters title", "Capped a multi-year injury comeback"],
+        video: "https://www.youtube.com/watch?v=l8UL23m1qQY"
+      },
+      {
+        name: "Mickelson Wins a Major at 50",
+        connection: "Phil Mickelson, 2021 PGA Championship",
+        date: "May 23, 2021 &middot; Kiawah Island",
+        stat: "OLDEST MAJOR CHAMPION EVER",
+        desc: "At 50 years old, Mickelson held off the field at the Ocean Course to become the oldest player ever to win a men's major championship, breaking a record that had stood since 1968.",
+        pills: ["Oldest major champion ever", "Broke a record from 1968", "Won at Kiawah Island"],
+        video: "https://www.youtube.com/watch?v=2Bpip0p4k4c"
+      },
+      {
+        name: "McIlroy Completes the Career Slam",
+        connection: "Rory McIlroy, 2025 Masters",
+        date: "April 13, 2025 &middot; Augusta National, Playoff",
+        stat: "CAREER GRAND SLAM, IN A PLAYOFF",
+        desc: "After an 11-year wait and several painful near-misses since his last major, McIlroy won a playoff at Augusta to capture the only major that had eluded him, becoming just the sixth player in history to complete the career Grand Slam.",
+        pills: ["Ended an 11-year major drought", "Won in a playoff", "Sixth player to complete the career Slam"],
+        video: "https://www.youtube.com/watch?v=MnnJtvTe0XY"
+      }
+    ]
+  },
+  records: {
+    title: "Records",
+    desc: "The numbers that stood the test of time.",
+    tone: "tone-navy",
+    plays: [
+      {
+        name: "Byron Nelson's 11 Straight Wins",
+        connection: "1945 PGA Tour season",
+        date: "March&ndash;Aug 1945",
+        stat: "11 CONSECUTIVE TOUR WINS",
+        desc: "Nelson won 11 PGA Tour events in a row during his 1945 season, a streak of dominance still considered one of the most untouchable records in professional sports.",
+        pills: ["18 total wins that season", "Streak still stands unbroken", "Widely called an unbreakable record"],
+        video: "https://www.youtube.com/watch?v=SzA9dD17eww"
+      },
+      {
+        name: "Tiger Ties Snead's Win Record",
+        connection: "2019 Zozo Championship",
+        date: "Oct 28, 2019 &middot; Chiba, Japan",
+        stat: "82ND CAREER PGA TOUR WIN",
+        desc: "Woods won the Zozo Championship for his 82nd PGA Tour title, tying Sam Snead's all-time career wins record that had stood since 1965.",
+        pills: ["Tied a record from 1965", "82 career PGA Tour wins", "Won in his return from injury"],
+        video: "https://www.youtube.com/watch?v=XWaE-zY14TE"
+      },
+      {
+        name: "Sorenstam Shoots 59",
+        connection: "Annika Sorenstam, 2001 Standard Register Ping",
+        date: "March 16, 2001 &middot; Moon Valley Country Club",
+        stat: "FIRST 59 IN LPGA HISTORY",
+        desc: "Sorenstam became the first player in LPGA history to break 60, carding a 13-under 59 in the second round on her way to a runaway victory.",
+        pills: ["First sub-60 round in LPGA history", "13-under par", "Won the tournament by 9 strokes"],
+        video: "https://www.youtube.com/watch?v=XQCPpn1ni-g"
+      },
+      {
+        name: "Nicklaus's 18 Majors",
+        connection: "Jack Nicklaus, career record",
+        date: "1962&ndash;1986 career",
+        stat: "18 CAREER MAJOR CHAMPIONSHIPS",
+        desc: "Nicklaus's 18th and final major came at the 1986 Masters, capping a career record for men's major championships that has stood for decades and remains the sport's most cited benchmark.",
+        pills: ["Men's all-time record", "Set with the 1986 Masters", "Still stands as of 2026"],
+        video: "https://www.youtube.com/watch?v=ab8cXxKwrUA"
+      }
+    ]
+  }
+};
+
+const THEMES = {
+  nfl:    { field:'#173A2E', fieldDark:'#102822', flag:'#F2B705', endzone:'#8C2F2F' },
+  mlb:    { field:'#1E3A5F', fieldDark:'#122542', flag:'#E8B84B', endzone:'#B23A3A' },
+  nba:    { field:'#3B2410', fieldDark:'#231506', flag:'#FF8C00', endzone:'#111111' },
+  soccer: { field:'#0B4D2C', fieldDark:'#052C19', flag:'#F4C542', endzone:'#C0392B' },
+  nhl:    { field:'#12283D', fieldDark:'#081018', flag:'#E63946', endzone:'#0B0B0B' },
+  golf:   { field:'#234D35', fieldDark:'#142E1F', flag:'#C9A227', endzone:'#8B6F47' }
+};
+
+function applyTheme(sportKey){
+  const t = THEMES[sportKey];
+  const root = document.documentElement.style;
+  root.setProperty('--field', t.field);
+  root.setProperty('--field-dark', t.fieldDark);
+  root.setProperty('--flag', t.flag);
+  root.setProperty('--endzone', t.endzone);
+}
+
+const bannerNum = document.getElementById('bannerNum');
+const bannerTitle = document.getElementById('bannerTitle');
+const bannerDesc = document.getElementById('bannerDesc');
+const resultCount = document.getElementById('resultCount');
+const playsEl = document.getElementById('plays');
+const videoModal = document.getElementById('videoModal');
+const videoModalFrame = document.getElementById('videoModalFrame');
+const videoModalClose = document.getElementById('videoModalClose');
+const videoModalBackdrop = document.getElementById('videoModalBackdrop');
+const videoModalFallback = document.getElementById('videoModalFallback');
+const WATCH_SVG = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M10 8l6 4-6 4V8z" fill="currentColor"/></svg>';
+
+function extractYouTubeId(url){
+  const m = url.match(/(?:youtube\.com\/watch\?v=|youtube\.com\/shorts\/|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+function watchLinkHTML(p){
+  if (!p.video) return '';
+  const vid = extractYouTubeId(p.video);
+  if (vid){
+    const label = EMBED_BLOCKED.has(vid) ? 'Watch on YouTube' : 'Watch the play';
+    return `<button type="button" class="watch-link" data-video-id="${vid}">${WATCH_SVG}${label}</button>`;
+  }
+  return `<a class="watch-link" href="${p.video}" target="_blank" rel="noopener noreferrer">${WATCH_SVG}Watch the play</a>`;
+}
+
+let ytPlayer = null;
+let ytApiReady = false;
+let pendingVideoId = null;
+
+// Clips the rights holder (NFL, FIFA, etc.) has blocked from embedding.
+// Verified via the YouTube player API; they still open on YouTube directly.
+const EMBED_BLOCKED = new Set([
+  "ywa3k9N___s","ZEZKpY8t4EQ","xLsFSsHnoxM","T_AyI8I4O3U","qCAQsEwyCcg",
+  "_cXqbqMgNoE","4SiUNdkIwzQ","zxbz3DDQzHU","pVmYsOEeHm4","LYP91oVyUuU",
+  "EDyRaCMFq8o","jvPaTX2Ha4E","Da_CDPRG2j0","4TuggkDPw6A","s7I4a6Z07Uk",
+  "rJmdmgRIb1g","NtvUzy00DuU","qxnFW3LjDIg","aE4BdIP6bvc","jb16JvUCVQs",
+  "2qCZe6Ki-zk","A9vv38T521E"
+]);
+
+// Load the YouTube IFrame Player API once so we can detect embed blocks.
+(function loadYouTubeAPI(){
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+window.onYouTubeIframeAPIReady = function(){
+  ytApiReady = true;
+  if (pendingVideoId){ const id = pendingVideoId; pendingVideoId = null; startPlayer(id); }
+};
+
+function showBlockedMessage(videoId){
+  videoModalFrame.innerHTML = `
+    <div class="video-blocked">
+      <div class="video-blocked-icon">${WATCH_SVG}</div>
+      <p class="video-blocked-title">This clip can't play inside the app</p>
+      <p class="video-blocked-sub">The league disabled embedding for this video. It still plays on YouTube &mdash; ad-free with Premium.</p>
+      <a class="video-blocked-btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer">Watch on YouTube &#8599;</a>
+    </div>`;
+}
+
+function startPlayer(videoId){
+  videoModalFrame.innerHTML = '<div id="ytPlayerMount"></div>';
+  ytPlayer = new YT.Player('ytPlayerMount', {
+    width: '100%', height: '100%', videoId: videoId,
+    playerVars: { autoplay: 1, rel: 0, modestbranding: 1 },
+    events: {
+      'onReady': (e) => { try { e.target.playVideo(); } catch(err){} },
+      'onError': () => showBlockedMessage(videoId)
+    }
+  });
+}
+
+function openVideoModal(videoId){
+  videoModalFallback.href = `https://www.youtube.com/watch?v=${videoId}`;
+  videoModal.classList.add('open');
+  videoModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (EMBED_BLOCKED.has(videoId)){ showBlockedMessage(videoId); videoModalClose.focus(); return; }
+  videoModalFrame.innerHTML = '<div class="video-loading">Loading&hellip;</div>';
+  if (ytApiReady){ startPlayer(videoId); }
+  else { pendingVideoId = videoId; }
+  videoModalClose.focus();
+}
+
+function closeVideoModal(){
+  videoModal.classList.remove('open');
+  videoModal.setAttribute('aria-hidden', 'true');
+  if (ytPlayer && ytPlayer.destroy){ try { ytPlayer.destroy(); } catch(e){} ytPlayer = null; }
+  videoModalFrame.innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+playsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.watch-link[data-video-id]');
+  if (!btn) return;
+  openVideoModal(btn.dataset.videoId);
+});
+
+videoModalClose.addEventListener('click', closeVideoModal);
+videoModalBackdrop.addEventListener('click', closeVideoModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && videoModal.classList.contains('open')) closeVideoModal();
+});
+const categoryTabs = document.getElementById('categoryTabs');
+const bottomNav = document.getElementById('bottomNav');
+const searchInput = document.getElementById('searchInput');
+const favToggle = document.getElementById('favToggle');
+const mainTitle = document.getElementById('mainTitle');
+const mainSubhead = document.getElementById('mainSubhead');
+
+const SPORTS = {
+  nfl: {
+    data: DATA,
+    order: ['td', 'comp', 'drop', 'flag'],
+    labels: { td: 'Touchdown Passes', comp: 'Completed Passes', drop: 'Dropped Passes', flag: 'Called Back on a Penalty' },
+    title: 'Greatest Passes<br>in <span>NFL</span> History',
+    subhead: "Four ways to review the tape. Pick a category below and the booth will pull up the plays that defined it &mdash; from touchdowns that built dynasties to drops that haunted careers."
+  },
+  mlb: {
+    data: BASEBALL_DATA,
+    order: ['catches', 'walkoffs', 'longest', 'strikeouts', 'pickoffs', 'busch', 'records'],
+    labels: { catches: 'Best Catches', walkoffs: 'Best Walk-Off Home Runs', longest: 'Longest Home Runs', strikeouts: 'Best Strikeouts', pickoffs: 'Best Pick-Offs', busch: 'Busch League Plays', records: 'Home Run Records' },
+    title: 'Greatest Plays<br>in <span>MLB</span> History',
+    subhead: "Seven ways to review the tape. Pick a category below and the booth will pull up the plays that defined it &mdash; from legendary catches to the bloopers nobody lives down."
+  },
+  nba: {
+    data: NBA_DATA,
+    order: ['dunks', 'defense', 'clutch', 'records'],
+    labels: { dunks: 'Legendary Dunks', defense: 'Highlight-Reel Defense', clutch: 'Buzzer-Beaters & Clutch Shots', records: 'Scoring Records' },
+    title: 'Greatest Plays<br>in <span>NBA</span> History',
+    subhead: "Four ways to review the tape. Pick a category below for the dunks, buzzer-beaters, defensive stops, and records that built the league's legend."
+  },
+  soccer: {
+    data: SOCCER_DATA,
+    order: ['goals', 'saves', 'worldcup', 'comebacks'],
+    labels: { goals: 'Greatest Goals', saves: 'Iconic Saves', worldcup: 'World Cup Moments', comebacks: 'Greatest Comebacks' },
+    title: 'Greatest Moments<br>in <span>Soccer</span> History',
+    subhead: "Four ways to review the tape. Pick a category below for the goals, saves, World Cup moments, and comebacks the world still talks about."
+  },
+  nhl: {
+    data: NHL_DATA,
+    order: ['goals', 'saves', 'overtime', 'records'],
+    labels: { goals: 'Legendary Goals', saves: 'Iconic Saves', overtime: 'Overtime Heroics', records: 'Records & Milestones' },
+    title: 'Greatest Plays<br>in <span>NHL</span> History',
+    subhead: "Four ways to review the tape. Pick a category below for the goals, saves, overtime winners, and records that built the league's legend."
+  },
+  golf: {
+    data: GOLF_DATA,
+    order: ['shots', 'majors', 'comebacks', 'records'],
+    labels: { shots: 'Iconic Shots', majors: 'Major Moments', comebacks: 'Greatest Comebacks', records: 'Records' },
+    title: 'Greatest Moments<br>in <span>Golf</span> History',
+    subhead: "Four ways to review the tape. Pick a category below for the shots, major championships, comebacks, and records that defined the sport."
+  }
+};
+
+let currentSport = 'nfl';
+let currentCategory = null;
+let searchQuery = '';
+let favoritesOnly = false;
+
+const FAV_KEY = 'sportsAppFavorites';
+function loadFavorites(){
+  try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); }
+  catch(e){ return new Set(); }
+}
+function saveFavorites(){ localStorage.setItem(FAV_KEY, JSON.stringify([...favorites])); }
+function favKey(sportKey, categoryKey, name){ return sportKey + '::' + categoryKey + '::' + name; }
+let favorites = loadFavorites();
+
+function renderCategoryTabs(sportKey){
+  const sport = SPORTS[sportKey];
+  categoryTabs.innerHTML = sport.order.map(key =>
+    `<button type="button" class="category-tab" data-key="${key}" role="tab">${sport.labels[key]}</button>`
+  ).join('');
+}
+
+function render(categoryKey){
+  currentCategory = categoryKey;
+  const sport = SPORTS[currentSport];
+  const cat = sport.data[categoryKey];
+  const num = sport.order.indexOf(categoryKey) + 1;
+  bannerNum.textContent = String(num).padStart(2, '0');
+  bannerTitle.textContent = cat.title;
+  bannerDesc.innerHTML = cat.desc;
+
+  Array.from(categoryTabs.children).forEach(btn => {
+    const isActive = btn.dataset.key === categoryKey;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', String(isActive));
+  });
+
+  const q = searchQuery.trim().toLowerCase();
+  const plays = cat.plays.filter(p => {
+    if (favoritesOnly && !favorites.has(favKey(currentSport, categoryKey, p.name))) return false;
+    if (!q) return true;
+    const haystack = [p.name, p.connection, p.desc, ...(p.pills || [])].join(' ').toLowerCase();
+    return haystack.includes(q);
+  });
+
+  resultCount.textContent = plays.length === cat.plays.length
+    ? `${cat.plays.length} play${cat.plays.length === 1 ? '' : 's'}`
+    : `${plays.length} of ${cat.plays.length} plays`;
+
+  playsEl.innerHTML = '';
+
+  if (plays.length === 0){
+    const reason = favoritesOnly ? ' in your favorites' : (q ? ` matching “${searchQuery.trim()}”` : '');
+    playsEl.innerHTML = `<p class="no-results">No plays${reason}.</p>`;
+    return;
+  }
+
+  plays.forEach((p, i) => {
+    const card = document.createElement('article');
+    card.className = 'play-card ' + cat.tone;
+    card.style.animationDelay = (i * 0.06) + 's';
+    const key = favKey(currentSport, categoryKey, p.name);
+    const isFav = favorites.has(key);
+    card.innerHTML = `
+      <div class="play-top">
+        <h3 class="play-name">${p.name}</h3>
+        <div class="play-top-right">
+          <div class="play-meta">${p.stat}<span class="date">${p.date}</span></div>
+          <button type="button" class="fav-star ${isFav ? 'active' : ''}" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}" aria-pressed="${isFav}">${isFav ? '&#9733;' : '&#9734;'}</button>
+        </div>
+      </div>
+      <p class="play-connection">${p.connection}</p>
+      <p class="play-desc">${p.desc}</p>
+      <div class="stat-row">${p.pills.map(pl => `<span class="stat-pill">${pl}</span>`).join('')}</div>
+      ${watchLinkHTML(p)}
+    `;
+    card.querySelector('.fav-star').addEventListener('click', () => {
+      if (favorites.has(key)) favorites.delete(key); else favorites.add(key);
+      saveFavorites();
+      render(currentCategory);
+    });
+    playsEl.appendChild(card);
+  });
+}
+
+const SPORT_NAV = [
+  { key:'nfl',    icon:'🏈', label:'NFL' },
+  { key:'mlb',    icon:'⚾', label:'MLB' },
+  { key:'nba',    icon:'🏀', label:'NBA' },
+  { key:'soccer', icon:'⚽', label:'Soccer' },
+  { key:'nhl',    icon:'🏒', label:'NHL' },
+  { key:'golf',   icon:'⛳', label:'Golf' }
+];
+
+function renderBottomNav(){
+  bottomNav.innerHTML = SPORT_NAV.map(s =>
+    `<button type="button" class="sport-btn ${s.key === currentSport ? 'active' : ''}" data-sport="${s.key}" aria-label="${s.label}" aria-pressed="${s.key === currentSport}">
+      <span class="icon" aria-hidden="true">${s.icon}</span>
+      <span class="lbl">${s.label}</span>
+    </button>`
+  ).join('');
+}
+
+function switchSport(sportKey){
+  currentSport = sportKey;
+  applyTheme(currentSport);
+  mainTitle.innerHTML = SPORTS[currentSport].title;
+  mainSubhead.innerHTML = SPORTS[currentSport].subhead;
+  searchInput.value = '';
+  searchQuery = '';
+  renderBottomNav();
+  renderCategoryTabs(currentSport);
+  render(SPORTS[currentSport].order[0]);
+}
+
+bottomNav.addEventListener('click', (e) => {
+  const btn = e.target.closest('.sport-btn');
+  if (!btn || btn.dataset.sport === currentSport) return;
+  switchSport(btn.dataset.sport);
+});
+
+categoryTabs.addEventListener('click', (e) => {
+  const btn = e.target.closest('.category-tab');
+  if (!btn) return;
+  render(btn.dataset.key);
+});
+
+searchInput.addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  render(currentCategory);
+});
+
+favToggle.addEventListener('click', () => {
+  favoritesOnly = !favoritesOnly;
+  favToggle.classList.toggle('active', favoritesOnly);
+  favToggle.setAttribute('aria-pressed', String(favoritesOnly));
+  render(currentCategory);
+});
+
+applyTheme(currentSport);
+renderBottomNav();
+renderCategoryTabs(currentSport);
+render(SPORTS[currentSport].order[0]);
+</script>
+
+</body>
+</html>
