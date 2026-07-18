@@ -40,7 +40,7 @@
     color:var(--ink);
     font-family:var(--font-sans);
     min-height:100vh;
-    padding:0 0 130px;
+    padding:0 0 60px;
   }
 
   header{
@@ -464,18 +464,15 @@
   @keyframes modalPop{ from{ transform:scale(.95); opacity:0; } to{ transform:scale(1); opacity:1; } }
 
   .bottom-nav{
-    position:fixed;
-    bottom:14px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:100;
     display:flex;
     gap:4px;
     background:#FFFFFF;
     border-radius:100px;
     padding:8px 12px;
-    box-shadow:0 16px 40px -16px rgba(0,0,0,.65);
-    max-width:calc(100vw - 24px);
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.55);
+    width:max-content;
+    max-width:calc(100vw - 40px);
+    margin:26px auto 0;
     overflow-x:auto;
   }
   .sport-btn{
@@ -527,6 +524,8 @@
   <p class="subhead" id="mainSubhead">Four ways to review the tape. Pick a category below and the booth will pull up the plays that defined it &mdash; from touchdowns that built dynasties to drops that haunted careers.</p>
 </header>
 
+<nav class="bottom-nav" id="bottomNav" aria-label="Select a sport"></nav>
+
 <div class="control-strip search-strip">
   <input type="search" id="searchInput" placeholder="Search plays, players, teams&hellip;" aria-label="Search plays">
   <button type="button" id="favToggle" class="fav-toggle" aria-pressed="false">&#9733; Favorites</button>
@@ -549,8 +548,6 @@
 <footer>
   Historical recap for reference &mdash; built from publicly reported game accounts. Not affiliated with any league.
 </footer>
-
-<nav class="bottom-nav" id="bottomNav" aria-label="Select a sport"></nav>
 
 <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Video player">
   <div class="video-modal-backdrop" id="videoModalBackdrop"></div>
