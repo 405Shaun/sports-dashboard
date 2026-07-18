@@ -118,6 +118,18 @@
   .fav-toggle:hover{ transform:translateY(-1px); }
   .fav-toggle.active{ background:var(--flag); color:var(--ink); }
 
+  .yt-note{
+    max-width:900px;
+    margin:16px auto 0;
+    padding:0 24px;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:.04em;
+    color:var(--hash);
+  }
+  .yt-note b{ color:var(--flag); font-weight:600; }
+
   .category-tabs{
     max-width:900px;
     margin:28px auto 0;
@@ -457,6 +469,14 @@
     transition:background .15s ease;
   }
   .video-modal-fallback:hover{ background:rgba(255,255,255,.18); }
+  .modal-note{
+    margin:10px 0 0;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    color:rgba(255,255,255,.55);
+  }
 
   @media (prefers-reduced-motion: no-preference){
     .video-modal-frame{ animation:modalPop .2s ease; }
@@ -531,6 +551,8 @@
   <button type="button" id="favToggle" class="fav-toggle" aria-pressed="false">&#9733; Favorites</button>
 </div>
 
+<p class="yt-note">&#9654; Every clip plays on YouTube &middot; <b>YouTube Premium accounts see no ads</b></p>
+
 <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="Select a play category"></div>
 
 <main>
@@ -555,6 +577,7 @@
     <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
     <div class="video-modal-frame" id="videoModalFrame"></div>
     <a class="video-modal-fallback" id="videoModalFallback" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube &#8599;</a>
+    <p class="modal-note">No ads for YouTube Premium accounts</p>
   </div>
 </div>
 
@@ -676,7 +699,7 @@ const DATA = {
         stat: "DROPPED 2-PT CONVERSION",
         desc: "Trailing by two with 1:33 left, the Ravens scored a touchdown and went for two to tie it. A three-time All-Pro tight end who rarely drops anything let the pass go right through his hands in the end zone. Buffalo held on to win and advance, immediately drawing comparisons to Jackie Smith's Super Bowl XIII drop nearly half a century earlier.",
         pills: ["Score it, tie the game", "Ravens lost, 27-25", "Echoed Super Bowl XIII"],
-        video: "https://www.nfl.com/videos/mark-andrews-drops-potential-game-tying-two-point-conversion-catch-vs-bills"
+        video: "https://www.youtube.com/watch?v=NjT4bKg4XiU"
       }
     ]
   },
@@ -701,7 +724,7 @@ const DATA = {
         stat: "TD WIPED &mdash; ILLEGAL MOTION",
         desc: "On a gadget play, running back David Montgomery threw back to quarterback Jared Goff, who caught it for an apparent touchdown. Officials ruled Goff never came to a required full-second stop after going in motion pre-snap, erasing the score for illegal motion. Detroit settled for a field goal.",
         pills: ["Illegal motion, 5 yds", "Lions kicked FG instead", "Rare QB-as-receiver TD"],
-        video: "https://www.youtube.com/watch?v=EDyRaCMFq8o"
+        video: "https://www.youtube.com/watch?v=BjuydngjLGk"
       },
       {
         name: "DeSean Jackson's Premature Celebration",
@@ -756,7 +779,7 @@ const BASEBALL_DATA = {
         stat: "HOME RUN TAKEN AWAY, 9TH INNING",
         desc: "Inserted as a defensive replacement to start the ninth, Wise immediately had to run down a deep Gabe Kapler drive at the center-field wall. He timed his leap, briefly juggled the ball on the way down, and held on &mdash; keeping Buehrle's perfect game alive for the final two outs.",
         pills: ["9th inning, first batter faced", "White Sox won 5-0", "18th perfect game in MLB history"],
-        video: "https://www.mlb.com/video/wise-robs-homer-saves-perfecto-c5699065"
+        video: "https://www.youtube.com/watch?v=kk9nLy-A0qI"
       },
       {
         name: "Kirby Puckett's Game 6 Grab",
@@ -885,7 +908,7 @@ const BASEBALL_DATA = {
         stat: "20 K, ONE-HIT SHUTOUT",
         desc: "In just his fifth career start, the 20-year-old rookie tied the modern MLB record with 20 strikeouts, allowing only one infield single and a hit batter. Many still call it the greatest single-game pitching performance ever.",
         pills: ["Cubs won 2-0", "Tied Clemens' MLB record", "Wood matched his own age (20) in Ks"],
-        video: "https://www.mlb.com/video/kerry-wood-s-20-strikeout-game"
+        video: "https://www.youtube.com/watch?v=IWbQyRAvZRc"
       },
       {
         name: "Roger Clemens, Twice",
@@ -1837,7 +1860,7 @@ let pendingVideoId = null;
 const EMBED_BLOCKED = new Set([
   "ywa3k9N___s","ZEZKpY8t4EQ","xLsFSsHnoxM","T_AyI8I4O3U","qCAQsEwyCcg",
   "_cXqbqMgNoE","4SiUNdkIwzQ","zxbz3DDQzHU","pVmYsOEeHm4","LYP91oVyUuU",
-  "EDyRaCMFq8o","jvPaTX2Ha4E","Da_CDPRG2j0","4TuggkDPw6A","s7I4a6Z07Uk",
+  "NjT4bKg4XiU","jvPaTX2Ha4E","Da_CDPRG2j0","4TuggkDPw6A","s7I4a6Z07Uk",
   "rJmdmgRIb1g","NtvUzy00DuU","qxnFW3LjDIg","aE4BdIP6bvc","jb16JvUCVQs",
   "2qCZe6Ki-zk","A9vv38T521E"
 ]);
